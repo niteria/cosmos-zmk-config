@@ -1,0 +1,40 @@
+if SHIELD_COSMOS
+
+config ZMK_KEYBOARD_NAME
+    string
+    default "Cosmos"
+
+config ZMK_SPLIT
+    bool
+    default y
+
+config ZMK_SPLIT_BLE
+    bool
+    default y
+
+# Split role is determined by which shield is used
+# cosmos_right is central, cosmos_left is peripheral
+
+endif
+
+if SHIELD_COSMOS_RIGHT
+
+config ZMK_SPLIT_ROLE_CENTRAL
+    bool
+    default y
+
+# Number of peripherals (just the left half)
+config ZMK_SPLIT_BLE_CENTRAL_PERIPHERALS
+    int
+    default 1
+
+# BT_MAX_CONN = peripherals + 5 (default BT profiles)
+config BT_MAX_CONN
+    int
+    default 6
+
+config BT_MAX_PAIRED
+    int
+    default 6
+
+endif
