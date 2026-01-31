@@ -127,6 +127,7 @@ This firmware includes support for a PMW3360/PMW3389 optical trackball sensor on
   - `rotate-270`: enabled (fixes trackball orientation)
 - **Lift-off Distance**: `lift-height-3mm` enabled (3mm lift-off distance)
 - **Input Listener**: `trackball_listener` node processes sensor events and converts them to mouse movements
+- **Scroll Mode**: Hold the RAISE layer thumb key to switch trackball to scroll mode (X/Y axis → horizontal/vertical scroll)
 
 ### Important Notes
 
