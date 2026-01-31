@@ -50,11 +50,16 @@ This is an adaptation of [Mark Stosberg's Corne layout](https://github.com/marks
 ├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
 │     │HOME │END  │  -  │  =  │PGDN │   │LEFT │DOWN │ UP  │RIGHT│MENU │     │
 ├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
-│     │  <  │  >  │ CPY │ PST │  ;  │   │MUTE │PREV │NEXT │VOLD │VOLU │     │
+│     │  <  │  >  │ CPY │ PST │  ;  │   │LCLK │RCLK │MCLK │VOLD │VOLU │     │
 ├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
 │     │     │     │CTL/E│     │ FUNC│   │     │     │     │     │     │     │
 └─────┴─────┴─────┴─────┴─────┴─────┘   └─────┴─────┴─────┴─────┴─────┴─────┘
 ```
+
+**Mouse Buttons:**
+- **LCLK**: Left mouse click (press and hold for drag operations)
+- **RCLK**: Right mouse click
+- **MCLK**: Middle mouse click
 
 ## Combos
 
