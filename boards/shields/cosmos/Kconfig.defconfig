@@ -12,6 +12,32 @@ config ZMK_SPLIT_BLE
     bool
     default y
 
+# Pointing device support
+config ZMK_POINTING
+    bool
+    default y
+
+config ZMK_SPLIT_POINTING_ENABLE
+    bool
+    default y
+
+config SPI
+    bool
+    default y
+
+config INPUT
+    bool
+    default y
+
+config SENSOR
+    bool
+    default y
+
+# PMW3360/PMW3389 trackball driver
+config INPUT_PIXART_PMW3360
+    bool
+    default y
+
 # Split role is determined by which shield is used
 # cosmos_right is central, cosmos_left is peripheral
 
