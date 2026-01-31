@@ -24,21 +24,21 @@ This is an adaptation of [Mark Stosberg's Corne layout](https://github.com/marks
 - **Home Row Mods**: ASDF (left) and JKL; (right) have tap-hold modifiers
   - Tap = letter, Hold = modifier (Ctrl/Alt/Gui/Shift)
 - **Outer Columns**: TAB (left), DEL (right), with sticky modifiers on rows 1-2
-- **Thumb Cluster** (Mark's layout):
-  - Left: LCTL | GUI/Enter | Lower/Tab
-  - Right: Raise/Backspace | Space | LSHFT
+- **Thumb Cluster**:
+   - Left: LCTRL (sticky) | GUI/Enter (mod-tap) | Lower/Tab (layer)
+   - Right: Raise/Backspace (layer) | Space | LSHIFT (sticky)
 
 ### Lower Layer
 
 ```
 ┌─────┬─────┬─────┬─────┬─────┬─────┐   ┌─────┬─────┬─────┬─────┬─────┬─────┐
-│     │ F1  │ F2  │ F3  │ F4  │ F5  │   │ F6  │ F7  │ F8  │ F9  │ F10 │ F11 │
-├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
-│     │  1  │  2  │  3  │  4  │  5  │   │  6  │  7  │  8  │  9  │  0  │ F12 │
-├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
 │     │  !  │  @  │  #  │  $  │  %  │   │  ^  │  &  │  *  │  (  │  )  │     │
 ├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
-│     │     │     │     │     │     │   │     │     │     │     │     │     │
+│     │  1  │  2  │  3  │  4  │  5  │   │  6  │  7  │  8  │  9  │  0  │     │
+├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
+│     │  ~  │  `  │  [  │  {  │  ]  │   │  }  │  <  │  >  │  /  │     │     │
+├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
+│     │     │     │     │     │ FUNC│   │     │  :  │  ;  │     │     │     │
 └─────┴─────┴─────┴─────┴─────┴─────┘   └─────┴─────┴─────┴─────┴─────┴─────┘
 ```
 
@@ -46,13 +46,13 @@ This is an adaptation of [Mark Stosberg's Corne layout](https://github.com/marks
 
 ```
 ┌─────┬─────┬─────┬─────┬─────┬─────┐   ┌─────┬─────┬─────┬─────┬─────┬─────┐
-│     │ HOME│ PGUP│     │     │     │   │     │     │     │ END │ PGDN│     │
+│     │ DEL │ INS │  _  │  +  │PGUP │   │     │     │     │  \  │  |  │     │
 ├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
-│     │ LEFT│ UP  │ DOWN│RIGHT│     │   │     │     │     │     │     │     │
+│     │HOME │END  │  -  │  =  │PGDN │   │LEFT │DOWN │ UP  │RIGHT│MENU │     │
 ├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
-│     │  [  │  ]  │  {  │  }  │  |  │   │  +  │  -  │  =  │  _  │     │     │
+│     │  <  │  >  │ CPY │ PST │  ;  │   │MUTE │PREV │NEXT │VOLD │VOLU │     │
 ├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
-│     │     │     │     │     │     │   │     │     │     │     │     │     │
+│     │     │     │CTL/E│     │ FUNC│   │     │     │     │     │     │     │
 └─────┴─────┴─────┴─────┴─────┴─────┘   └─────┴─────┴─────┴─────┴─────┴─────┘
 ```
 
@@ -65,17 +65,16 @@ Combos work on the base layer with 50ms timeout:
 | esc | J+K | ESC |
 | tab | A+S | TAB |
 | bspc | ,+. | BSPC |
-| del | K+L | DEL |
-| ent | ,+. | ENTER |
+| del | L+; | DEL |
 
 **3-Key Combos** (1 second hold):
 
 | Combo | Keys | Output |
 |-------|------|--------|
 | bootloader_left | Q+W+E | Bootloader mode |
-| bootloader_right | Y+U+I | Bootloader mode |
-| reset_left | A+S+D | System reset |
-| reset_right | H+J+K | System reset |
+| bootloader_right | U+I+O | Bootloader mode |
+| reset_left | A+L+; | System reset |
+| reset_right | J+L+; | System reset |
 
 ## Behaviors
 
