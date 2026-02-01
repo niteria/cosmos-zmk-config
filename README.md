@@ -11,7 +11,6 @@ This is an adaptation of [Mark Stosberg's Corne layout](https://github.com/marks
 │ TAB │  Q  │  W  │  E  │  R  │  T  │   │  Y  │  U  │  I  │  O  │  P  │ DEL │
 ├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
 │LALT │  A  │  S  │  D  │  F  │  G  │   │  H  │  J  │  K  │  L  │  ;  │RALT │
-│     │ LCTL│ LALT│ LGUI│LSHFT│     │   │     │LSHFT│ LGUI│ LALT│ LCTL│     │
 ├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
 │LSHFT│  Z  │  X  │  C  │  V  │  B  │   │  N  │  M  │  ,  │  .  │  /  │ FUN │
 ├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
@@ -66,9 +65,6 @@ Combos work on the base layer with 50ms timeout:
 | Combo | Keys | Output |
 |-------|------|--------|
 | esc | J+K | ESC |
-| tab | A+S | TAB |
-| bspc | ,+. | BSPC |
-| del | L+; | DEL |
 
 **3-Key Combos** (1 second hold):
 
@@ -76,8 +72,8 @@ Combos work on the base layer with 50ms timeout:
 |-------|------|--------|
 | bootloader_left | Q+W+E | Bootloader mode |
 | bootloader_right | U+I+O | Bootloader mode |
-| reset_left | A+L+; | System reset |
-| reset_right | J+L+; | System reset |
+| reset_left | A+S+D | System reset |
+| reset_right | H+J+K | System reset |
 
 ## Behaviors
 
