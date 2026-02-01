@@ -21,8 +21,6 @@ This is an adaptation of [Mark Stosberg's Corne layout](https://github.com/marks
 ```
 
 **Features:**
-- **Home Row Mods**: ASDF (left) and JKL; (right) have tap-hold modifiers
-  - Tap = letter, Hold = modifier (Ctrl/Alt/Gui/Shift)
 - **Outer Columns**: TAB (left), DEL (right), with sticky modifiers on rows 1-2
 - **Thumb Cluster**:
    - Left: LCTRL (sticky) | GUI/Enter (mod-tap) | Lower/Tab (layer)
@@ -83,15 +81,9 @@ Combos work on the base layer with 50ms timeout:
 
 ## Behaviors
 
-### Home Row Mods
-- **hml** (left): LCTRL/LALT/LGUI/LSHFT on ASDF
-- **hmr** (right): LSHFT/LGUI/LALT/LCTRL on JKL;
-- Flavor: balanced
-- Tapping term: 200ms
-
 ### Thumb Keys
 - **gui_ent**: GUI/Enter mod-tap
-- **low_tab**: Lower layer/Tab mod-tap  
+- **low_tab**: Lower layer/Tab mod-tap
 - **rse_bsp**: Raise layer/Backspace mod-tap
 
 ### Sticky Keys
