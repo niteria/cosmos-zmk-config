@@ -7,11 +7,11 @@
 undefined reference to `__device_dts_ord_142'
 ```
 
-**Cause**: The `zmk-driver-pmw3360` external west module from `george-norton` is not being included in the nix build. The `cosmos_right.overlay` references the `pixart,pmw3360` device which doesn't exist without the module.
+**Cause**: The `zmk-driver-pmw3360` external west module from `george-norton` is not being included in the nix build.
 
-**Solution**: Disabled trackball support to get a working build.
-- Removed `zmk-driver-pmw3360` from `config/west.yml`
-- Removed pointing/trackball configs from `cosmos.conf`
-- Simplified `cosmos_right.overlay` to remove trackball device
+**Solution**: 
+1. Added pmw3360 driver as a git submodule: `modules/pmw3360`
+2. Updated `config/west.yml` to reference the module with both remote and local path
+3. Updated `flake.nix` with new zephyrDepsHash
 
-**Status**: RESOLVED - Build works without trackball
+**Status**: RESOLVED - Build works WITH trackball support
