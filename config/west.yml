@@ -4,15 +4,9 @@ manifest:
   remotes:
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
-    - name: george-norton
-      url-base: https://github.com/george-norton
   projects:
     - name: zmk
       remote: zmkfirmware
       import: app/west.yml
-    - name: zmk-driver-pmw3360
-      remote: george-norton
-      revision: main
-      path: modules/pmw3360
   self:
     path: config
