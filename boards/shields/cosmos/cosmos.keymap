@@ -52,30 +52,6 @@
             bindings = <&kp ESC>;
             layers = <0>;
         };
-        combo_bootloader_left {
-            timeout-ms = <1000>;
-            key-positions = <1 2 3>;
-            bindings = <&bootloader>;
-            layers = <0>;
-        };
-        combo_bootloader_right {
-            timeout-ms = <1000>;
-            key-positions = <6 7 8>;
-            bindings = <&bootloader>;
-            layers = <0>;
-        };
-        combo_reset_left {
-            timeout-ms = <1000>;
-            key-positions = <13 14 15>;
-            bindings = <&sys_reset>;
-            layers = <0>;
-        };
-        combo_reset_right {
-            timeout-ms = <1000>;
-            key-positions = <18 19 20>;
-            bindings = <&sys_reset>;
-            layers = <0>;
-        };
     };
 
     keymap {
@@ -106,7 +82,7 @@
             bindings = <
                 &trans    &kp DEL   &kp INS   &kp UNDER &kp PLUS  &kp PG_UP &trans    &trans    &trans    &kp BSLH  &kp PIPE  &trans
                 &trans    &kp HOME  &kp END   &kp MINUS &kp EQUAL &kp PG_DN &kp LEFT  &kp DOWN  &kp UP    &kp RIGHT &kp K_APP &trans
-                &trans    &kp LT    &kp GT    &kp K_COPY&kp K_PASTE&kp SEMI &mkp LCLK &mkp RCLK &mkp MCLK &kp K_VOL_DN &kp K_VOL_UP &trans
+                &trans    &kp LT    &kp GT    &kp K_COPY&kp K_PASTE&kp SEMI &kp K_MUTE &kp K_PREV &kp K_NEXT &kp K_VOL_DN &kp K_VOL_UP &trans
                 &trans    &trans    &trans    &ctl_esc LCTRL ESC &trans    &mo 2     &trans    &trans    &trans    &trans    &trans    &trans
             >;
         };
@@ -116,8 +92,18 @@
             bindings = <
                 &trans    &kp F1    &kp F2    &kp F3    &kp F4    &kp F5    &kp F6    &kp F7    &kp F8    &kp F9    &kp F10   &trans
                 &trans    &kp F11   &kp F12   &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans
-                &trans    &kp CAPS  &kp LS(DEL) &kp LC(INS) &kp LS(INS) &trans    &trans    &trans    &trans    &trans    &bootloader &trans
+                &trans    &kp CAPS  &kp LS(DEL) &kp LC(INS) &kp LS(INS) &bootloader   &trans    &trans    &trans    &trans    &bootloader &trans
                 &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans
+            >;
+        };
+
+        mouse_layer {
+            display-name = "Mouse";
+            bindings = <
+                &none    &none    &none    &none    &none    &none    &none      &none      &none    &none    &none    &none
+                &none    &none    &none    &none    &none    &none    &mkp MCLK &none      &none    &none    &none    &none
+                &none    &none    &none    &none    &none    &none    &none      &none      &none    &none    &none    &none
+                &none    &none    &none    &none    &none    &none    &mkp LCLK  &mkp RCLK  &none    &none    &none    &none
             >;
         };
     };

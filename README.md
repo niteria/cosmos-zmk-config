@@ -4,6 +4,9 @@ This is an adaptation of [Mark Stosberg's Corne layout](https://github.com/marks
 
 ## Layout Overview
 
+Via https://github.com/caksoylar/keymap-drawer/ 
+![Layout](cosmos-stos.svg)
+
 ### Base Layer (QWERTY)
 
 ```
@@ -13,10 +16,10 @@ This is an adaptation of [Mark Stosberg's Corne layout](https://github.com/marks
 │LALT │  A  │  S  │  D  │  F  │  G  │   │  H  │  J  │  K  │  L  │  ;  │RALT │
 ├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
 │LSHFT│  Z  │  X  │  C  │  V  │  B  │   │  N  │  M  │  ,  │  .  │  /  │ FUN │
-├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
-│     │     │     │LCTL │GUI/ │LOW/ │   │RSE/ │ SPC │LSHFT│     │     │     │
-│     │     │     │     │ ENT │ TAB │   │ BSP │     │     │     │     │     │
-└─────┴─────┴─────┴─────┴─────┴─────┘   └─────┴─────┴─────┴─────┴─────┴─────┘
+└─────┴─────┴─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┴─────┴─────┘
+                  │LCTL │GUI/ │LOW/ │   │RSE/ │ SPC │LSHFT│
+                  │     │ ENT │ TAB │   │ BSP │     │     │
+                  └─────┴─────┴─────┘   └─────┴─────┴─────┘
 ```
 
 **Features:**
@@ -34,9 +37,9 @@ This is an adaptation of [Mark Stosberg's Corne layout](https://github.com/marks
 │     │  1  │  2  │  3  │  4  │  5  │   │  6  │  7  │  8  │  9  │  0  │     │
 ├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
 │     │  ~  │  `  │  [  │  {  │  ]  │   │  }  │  <  │  >  │  /  │     │     │
-├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
-│     │     │     │     │     │ FUNC│   │     │  :  │  ;  │     │     │     │
-└─────┴─────┴─────┴─────┴─────┴─────┘   └─────┴─────┴─────┴─────┴─────┴─────┘
+└─────┴─────┴─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┴─────┴─────┘
+                  │     │     │ FUNC│   │     │  :  │  ;  │                  
+                  └─────┴─────┴─────┘   └─────┴─────┴─────┘                  
 ```
 
 ### Raise Layer
@@ -47,10 +50,24 @@ This is an adaptation of [Mark Stosberg's Corne layout](https://github.com/marks
 ├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
 │     │HOME │END  │  -  │  =  │PGDN │   │LEFT │DOWN │ UP  │RIGHT│MENU │     │
 ├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
-│     │  <  │  >  │ CPY │ PST │  ;  │   │LCLK │RCLK │MCLK │VOLD │VOLU │     │
+│     │  <  │  >  │ CPY │ PST │  ;  │   │MUTE │PREV │NEXT │VOLD │VOLU │     │
+└─────┴─────┴─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┴─────┴─────┘
+                  │CTL/E│     │ FUNC│   │     │     │     │                  
+                  └─────┴─────┴─────┘   └─────┴─────┴─────┘                  
+```
+
+### Mouse Layer (activated upon moving the trackball)
+
+```
+┌─────┬─────┬─────┬─────┬─────┬─────┐   ┌─────┬─────┬─────┬─────┬─────┬─────┐
+│     │     │     │     │     │     │   │     │     │     │     │     │     │
 ├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
-│     │     │     │CTL/E│     │ FUNC│   │     │     │     │     │     │     │
-└─────┴─────┴─────┴─────┴─────┴─────┘   └─────┴─────┴─────┴─────┴─────┴─────┘
+│     │     │     │     │     │     │   │MCLK │     │     │     │     │     │
+├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
+│     │     │     │     │     │     │   │     │     │     │     │     │     │
+└─────┴─────┴─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┴─────┴─────┘ 
+                  │     │     │     │   │LCLK │RCLK │     │                  
+                  └─────┴─────┴─────┘   └─────┴─────┴─────┘                  
 ```
 
 **Mouse Buttons:**
@@ -66,15 +83,6 @@ Combos work on the base layer with 50ms timeout:
 |-------|------|--------|
 | esc | J+K | ESC |
 
-**3-Key Combos** (1 second hold):
-
-| Combo | Keys | Output |
-|-------|------|--------|
-| bootloader_left | Q+W+E | Bootloader mode |
-| bootloader_right | U+I+O | Bootloader mode |
-| reset_left | A+S+D | System reset |
-| reset_right | H+J+K | System reset |
-
 ## Behaviors
 
 ### Thumb Keys
@@ -88,13 +96,19 @@ Combos work on the base layer with 50ms timeout:
 ## Important Notes
 
 1. **Split Keyboard**: Right half is central, left is peripheral
-2. **Bootloader Combos**: Only work when both halves are connected (processed by central)
-3. **Single Half Mode**: To flash left half alone, short RST pin to GND
-4. **Key Matrix**: 4 rows × 12 columns (6 per half)
+2. **Bootloader**: Fn-B for left half, Fn-? for right half
+3. **Key Matrix**: 4 rows × 12 columns (6 per half)
 
 ## Trackball Support (Right Half)
 
 This firmware includes support for a PMW3360/PMW3389 optical trackball sensor on the right half.
+
+### Flashing
+
+1. `git push`
+2. gh run download
+3. Left half flash: Fn-B, USB device appears, copy corresponding .uf2
+3. Right half flash: Fn-?, USB device appears, copy corresponding .uf2
 
 ### Hardware Pinout
 

@@ -71,6 +71,9 @@
         compatible = "zmk,input-listener";
         device = <&trackball>;
 
+        /* Auto-activate Mouse layer (layer 4) on any trackball movement */
+        input-processors = <&zip_temp_layer 4 200>;
+
         raise_scroller {
             layers = <2>;
             input-processors = <&zip_xy_to_scroll_mapper>, <&zip_scroll_scaler 1 256>;
