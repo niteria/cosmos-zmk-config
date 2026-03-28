@@ -17,7 +17,7 @@ nix build .#firmware
 # Generate SVG from keymap
 nix run .#update-assets
 
-# Flash (requires hardware)
+# Flash (requires hardware) - interactive, goes half by half and tells you what to do
 nix run .#flash
 ```
 
