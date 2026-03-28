@@ -4,94 +4,28 @@ This is an adaptation of [Mark Stosberg's Corne layout](https://github.com/marks
 
 ## Layout Overview
 
-Via https://github.com/caksoylar/keymap-drawer/ 
-![Layout](cosmos-stos.svg)
+Generated via [keymap-drawer](https://github.com/caksoylar/keymap-drawer/) using `nix run .#update-assets`:
 
-### Base Layer (QWERTY)
+![Layout](assets/cosmos_keymap.svg)
 
+## Building
+
+```bash
+# Build firmware
+nix build .#firmware
+
+# Generate SVG from keymap
+nix run .#update-assets
+
+# Flash (requires hardware)
+nix run .#flash
 ```
-┌─────┬─────┬─────┬─────┬─────┬─────┐   ┌─────┬─────┬─────┬─────┬─────┬─────┐
-│ TAB │  Q  │  W  │  E  │  R  │  T  │   │  Y  │  U  │  I  │  O  │  P  │ DEL │
-├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
-│LALT │  A  │  S  │  D  │  F  │  G  │   │  H  │  J  │  K  │  L  │  ;  │RALT │
-├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
-│LSHFT│  Z  │  X  │  C  │  V  │  B  │   │  N  │  M  │  ,  │  .  │  /  │ FUN │
-└─────┴─────┴─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┴─────┴─────┘
-                  │LCTL │GUI/ │LOW/ │   │RSE/ │ SPC │LSHFT│
-                  │     │ ENT │ TAB │   │ BSP │     │     │
-                  └─────┴─────┴─────┘   └─────┴─────┴─────┘
-```
-
-**Features:**
-- **Outer Columns**: TAB (left), DEL (right), with sticky modifiers on rows 1-2
-- **Thumb Cluster**:
-   - Left: LCTRL (sticky) | GUI/Enter (mod-tap) | Lower/Tab (layer)
-   - Right: Raise/Backspace (layer) | Space | LSHIFT (sticky)
-
-### Lower Layer
-
-```
-┌─────┬─────┬─────┬─────┬─────┬─────┐   ┌─────┬─────┬─────┬─────┬─────┬─────┐
-│     │  !  │  @  │  #  │  $  │  %  │   │  ^  │  &  │  *  │  (  │  )  │     │
-├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
-│     │  1  │  2  │  3  │  4  │  5  │   │  6  │  7  │  8  │  9  │  0  │     │
-├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
-│     │  ~  │  `  │  [  │  {  │  ]  │   │  }  │  <  │  >  │  /  │     │     │
-└─────┴─────┴─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┴─────┴─────┘
-                  │     │     │ FUNC│   │     │  :  │  ;  │                  
-                  └─────┴─────┴─────┘   └─────┴─────┴─────┘                  
-```
-
-### Raise Layer
-
-```
-┌─────┬─────┬─────┬─────┬─────┬─────┐   ┌─────┬─────┬─────┬─────┬─────┬─────┐
-│     │ DEL │ INS │  _  │  +  │PGUP │   │     │     │     │  \  │  |  │     │
-├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
-│     │HOME │END  │  -  │  =  │PGDN │   │LEFT │DOWN │ UP  │RIGHT│MENU │     │
-├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
-│     │  <  │  >  │ CPY │ PST │  ;  │   │MUTE │PREV │NEXT │VOLD │VOLU │     │
-└─────┴─────┴─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┴─────┴─────┘
-                  │CTL/E│     │ FUNC│   │     │     │     │                  
-                  └─────┴─────┴─────┘   └─────┴─────┴─────┘                  
-```
-
-### Mouse Layer (activated upon moving the trackball)
-
-```
-┌─────┬─────┬─────┬─────┬─────┬─────┐   ┌─────┬─────┬─────┬─────┬─────┬─────┐
-│     │     │     │     │     │     │   │     │     │     │     │     │     │
-├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
-│     │     │     │     │     │     │   │MCLK │     │     │     │     │     │
-├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
-│     │     │     │     │     │     │   │     │     │     │     │     │     │
-└─────┴─────┴─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┴─────┴─────┘ 
-                  │     │     │     │   │LCLK │RCLK │     │                  
-                  └─────┴─────┴─────┘   └─────┴─────┴─────┘                  
-```
-
-**Mouse Buttons:**
-- **LCLK**: Left mouse click (press and hold for drag operations)
-- **RCLK**: Right mouse click
-- **MCLK**: Middle mouse click
 
 ## Combos
-
-Combos work on the base layer with 50ms timeout:
 
 | Combo | Keys | Output |
 |-------|------|--------|
 | esc | J+K | ESC |
-
-## Behaviors
-
-### Thumb Keys
-- **gui_ent**: GUI/Enter mod-tap
-- **low_tab**: Lower layer/Tab mod-tap
-- **rse_bsp**: Raise layer/Backspace mod-tap
-
-### Sticky Keys
-- LALT, RALT, LSHFT, LCTRL on outer columns
 
 ## Important Notes
 
@@ -108,7 +42,7 @@ This firmware includes support for a PMW3360/PMW3389 optical trackball sensor on
 1. `git push`
 2. gh run download
 3. Left half flash: Fn-B, USB device appears, copy corresponding .uf2
-3. Right half flash: Fn-?, USB device appears, copy corresponding .uf2
+4. Right half flash: Fn-?, USB device appears, copy corresponding .uf2
 
 ### Hardware Pinout
 
@@ -135,13 +69,6 @@ This firmware includes support for a PMW3360/PMW3389 optical trackball sensor on
 - **Lift-off Distance**: `lift-height-3mm` enabled (3mm lift-off distance)
 - **Input Listener**: `trackball_listener` node processes sensor events and converts them to mouse movements
 - **Scroll Mode**: Hold the RAISE layer thumb key to switch trackball to scroll mode (X/Y axis → horizontal/vertical scroll)
-
-### Important Notes
-
-1. **Distance**: Sensor must be 2-3mm from trackball surface. Too far = no tracking.
-2. **Voltage**: Use 3.3V ONLY. 5V will damage the sensor.
-3. **Lens**: Standard ADNS lens works for 2-3mm distance. For larger gaps, use ADNS-6190 lens.
-4. **Surface**: High-contrast trackball surfaces work best.
 
 ### Troubleshooting
 
