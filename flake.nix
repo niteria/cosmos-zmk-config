@@ -41,6 +41,8 @@
 
           board = "nice_nano_v2";
           shield = "cosmos_%PART%";
+          centralPart = "right";
+          enableZmkStudio = true;
 
           zephyrDepsHash = "sha256-ZZ8y4DkCqklcUDXezjdFbAcJedxCvqAS6fd8oFvDGTE=";
 
@@ -76,8 +78,7 @@
                                 echo "Parsing keymap from boards/shields/cosmos/cosmos.keymap..."
                                 keymap parse -c 12 -z "''${REPO_ROOT}/boards/shields/cosmos/cosmos.keymap" -o "''${REPO_ROOT}/assets/cosmos_keymap.yaml"
 
-                                # Fix layout: cosmos has 4 rows in ZMK (rows 0-3), but keymap-drawer expects 3 rows + thumbs
-                                # The 4th row in ZMK contains thumb keys at positions 3-8 (0-indexed within each half)
+                                # Use the Corne 6-column physical layout so the SVG matches the actual 42-key matrix.
                                 python3 -c "
                 import yaml
 
@@ -86,17 +87,7 @@
                 with open(yaml_path, 'r') as f:
                     data = yaml.safe_load(f)
 
-                # Use Corne 6-column layout as base
                 data['layout'] = {'zmk_keyboard': 'corne', 'layout_name': 'foostan_corne_6col_layout'}
-
-                # Fix each layer: move the 4th row (thumbs) from 12 keys to just the 6 thumb positions
-                for layer_name, layer_data in data['layers'].items():
-                    if len(layer_data) >= 4:
-                        old_row = layer_data[3]
-                        if isinstance(old_row, list) and len(old_row) == 12:
-                            # Keep only thumb keys at positions 3-8 (middle 6 keys)
-                            new_row = old_row[3:9]
-                            layer_data[3] = new_row
 
                 with open(yaml_path, 'w') as f:
                     yaml.dump(data, f, default_flow_style=False, sort_keys=False, allow_unicode=True)

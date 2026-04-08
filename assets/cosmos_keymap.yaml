@@ -209,8 +209,7 @@ layers:
     - Ctl+INS
     - Sft+INS
     - '&bootloader'
-    - t: ▽
-      type: trans
+    - '&studio_unlock'
     - t: ▽
       type: trans
     - t: ▽

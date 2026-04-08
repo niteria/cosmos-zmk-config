@@ -11,7 +11,7 @@ Generated via [keymap-drawer](https://github.com/caksoylar/keymap-drawer/) using
 ## Building
 
 ```bash
-# Build firmware
+# Build firmware (includes ZMK Studio on the right/central half)
 nix build .#firmware
 
 # Generate SVG from keymap
@@ -20,6 +20,13 @@ nix run .#update-assets
 # Flash (requires hardware) - interactive, goes half by half and tells you what to do
 nix run .#flash
 ```
+
+## ZMK Studio
+
+- `nix build .#firmware` builds ZMK Studio support by default.
+- ZMK Studio runs on the right half, since it is the split central side.
+- Connect the right half over USB, then use `Fn+N` to trigger `&studio_unlock` before connecting from [zmk.studio](https://zmk.studio/).
+- Once you start changing the keymap in ZMK Studio, changes to `boards/shields/cosmos/cosmos.keymap` will not apply again unless you restore stock settings in Studio.
 
 ## Combos
 
@@ -31,7 +38,7 @@ nix run .#flash
 
 1. **Split Keyboard**: Right half is central, left is peripheral
 2. **Bootloader**: Fn-B for left half, Fn-? for right half
-3. **Key Matrix**: 4 rows × 12 columns (6 per half)
+3. **Key Matrix**: 42 connected keys in a 4-row layout; the thumb cluster is the 4th row
 
 ## Trackball Support (Right Half)
 

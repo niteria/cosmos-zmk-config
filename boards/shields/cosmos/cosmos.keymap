@@ -63,7 +63,7 @@
                 &kp TAB   &kp Q     &kp W     &kp E     &kp R     &kp T     &kp Y     &kp U     &kp I     &kp O     &kp P     &kp DEL
                 &sk LALT  &kp A     &kp S     &kp D     &kp F     &kp G     &kp H     &kp J     &kp K     &kp L     &kp SQT   &sk RALT
                 &sk LSHFT &kp Z     &kp X     &kp C     &kp V     &kp B     &kp N     &kp M     &kp COMMA &kp DOT   &kp SLASH &sl 3
-                &none     &none     &none     &sk LCTRL &gui_ent LGUI ENTER &low_tab 1 TAB &rse_bsp 2 BSPC &kp SPC   &sk LSHFT &none     &none     &none
+                                    &sk LCTRL &gui_ent LGUI ENTER &low_tab 1 TAB &rse_bsp 2 BSPC &kp SPC   &sk LSHFT
             >;
         };
 
@@ -73,7 +73,7 @@
                 &trans    &kp EXCL  &kp AT    &kp HASH  &kp DLLR  &kp PRCNT &kp CARET &kp AMPS  &kp ASTRK &kp LPAR  &kp RPAR  &trans
                 &trans    &kp N1    &kp N2    &kp N3    &kp N4    &kp N5    &kp N6    &kp N7    &kp N8    &kp N9    &kp N0    &trans
                 &trans    &trans    &kp TILDE &kp GRAVE &kp LBKT  &kp LBRC  &kp RBRC  &kp RBKT  &kp COMMA &kp DOT   &kp SLASH &trans
-                &trans    &trans    &trans    &trans    &trans    &mo 1     &trans    &trans    &kp COLON &kp SEMI &trans    &trans
+                                    &trans    &trans    &mo 1     &trans    &trans    &kp COLON
             >;
         };
 
@@ -83,7 +83,7 @@
                 &trans    &kp DEL   &kp INS   &kp UNDER &kp PLUS  &kp PG_UP &trans    &trans    &trans    &kp BSLH  &kp PIPE  &trans
                 &trans    &kp HOME  &kp END   &kp MINUS &kp EQUAL &kp PG_DN &kp LEFT  &kp DOWN  &kp UP    &kp RIGHT &kp K_APP &trans
                 &trans    &kp LT    &kp GT    &kp K_COPY&kp K_PASTE&kp SEMI &kp K_MUTE &kp K_PREV &kp K_NEXT &kp K_VOL_DN &kp K_VOL_UP &trans
-                &trans    &trans    &trans    &ctl_esc LCTRL ESC &trans    &mo 2     &trans    &trans    &trans    &trans    &trans    &trans
+                                    &ctl_esc LCTRL ESC &trans    &mo 2     &trans    &trans    &trans
             >;
         };
 
@@ -92,8 +92,8 @@
             bindings = <
                 &trans    &kp F1    &kp F2    &kp F3    &kp F4    &kp F5    &kp F6    &kp F7    &kp F8    &kp F9    &kp F10   &trans
                 &trans    &kp F11   &kp F12   &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans
-                &trans    &kp CAPS  &kp LS(DEL) &kp LC(INS) &kp LS(INS) &bootloader   &trans    &trans    &trans    &trans    &bootloader &trans
-                &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans    &trans
+                &trans    &kp CAPS  &kp LS(DEL) &kp LC(INS) &kp LS(INS) &bootloader   &studio_unlock &trans    &trans    &trans    &bootloader &trans
+                                    &trans    &trans    &trans    &trans    &trans    &trans
             >;
         };
 
@@ -103,7 +103,7 @@
                 &none    &none    &none    &none    &none    &none    &none      &none      &none    &none    &none    &none
                 &none    &none    &none    &none    &none    &none    &mkp MCLK &none      &none    &none    &none    &none
                 &none    &none    &none    &none    &none    &none    &none      &none      &none    &none    &none    &none
-                &none    &none    &none    &none    &none    &none    &mkp LCLK  &mkp RCLK  &none    &none    &none    &none
+                                   &none    &none    &none    &mkp LCLK  &mkp RCLK  &none
             >;
         };
     };
