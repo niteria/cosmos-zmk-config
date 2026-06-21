@@ -50,6 +50,7 @@ Replace `/dev/sdX` with the device printed by the flasher, for example `/dev/sdb
 1. **Split Keyboard**: Right half is central, left is peripheral
 2. **Bootloader**: Fn-B for left half, Fn-? for right half
 3. **Key Matrix**: 42 connected keys in a 4-row layout; the thumb cluster is the 4th row
+4. **Controller LEDs**: The [SuperMini/ProMicro NRF52840](https://github.com/joric/nrfmicro/wiki/Alternatives#supermini-nrf52840) blue charging LED is wired to the charger IC `CHRG` pin, not controlled by ZMK; I destroyed it physically to stop the flashing.
 
 ## Trackball Support (Right Half)
 
