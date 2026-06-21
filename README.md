@@ -21,6 +21,17 @@ nix run .#update-assets
 nix run .#flash
 ```
 
+> [!WARNING]
+> Flash each half with a normal USB data cable, not a charge-only cable. A charge-only cable can power the keyboard while preventing the UF2 drive from appearing.
+
+If the flasher waits with `Please mount the mass storage device at /dev/sdX`, mount the UF2 drive in another terminal:
+
+```bash
+udisksctl mount -b /dev/sdX
+```
+
+Replace `/dev/sdX` with the device printed by the flasher, for example `/dev/sdb`.
+
 ## ZMK Studio
 
 - `nix build .#firmware` builds ZMK Studio support by default.
