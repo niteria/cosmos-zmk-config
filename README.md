@@ -2,6 +2,8 @@
 
 Solder-test firmware for the [Sidera PMW3610 PCB Rev. 2.x](https://siderakb.ziteh.dev/mouse-sensors/pmw3610/rev2/), using one **nice!nano v2** controller.
 
+> **Assembly note — C1 substitution:** This board was assembled with **4.7 µF for C1** instead of the BOM's **3.3 µF**, because 3.3 µF was hard to find. It still seems to work fine in the trackball test with this substitution.
+
 The `pmw3610_test` shield sends sensor movement straight to a USB mouse at **600 CPI** and exposes a USB serial debug log. It has no physical keys, mouse buttons, layers, split connection, Bluetooth, or ZMK Studio. A one-position, empty mock scan satisfies ZMK's keymap requirement without using any keyboard GPIOs.
 
 ## Wiring
