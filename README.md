@@ -1,90 +1,73 @@
-# Mark Stosberg Layout for Cosmos Keyboard
+# PMW3610 standalone trackball test
 
-This is an adaptation of [Mark Stosberg's Corne layout](https://github.com/markstos/qmk_userspace/blob/main/keyboards/crkbd/keymaps/markstos/keymap.c) for the Cosmos split keyboard running ZMK firmware.
+Solder-test firmware for the [Sidera PMW3610 PCB Rev. 2.x](https://siderakb.ziteh.dev/mouse-sensors/pmw3610/rev2/), using one **nice!nano v2** controller.
 
-## Layout Overview
+The `pmw3610_test` shield sends sensor movement straight to a USB mouse at **600 CPI** and exposes a USB serial debug log. It has no physical keys, mouse buttons, layers, split connection, Bluetooth, or ZMK Studio. A one-position, empty mock scan satisfies ZMK's keymap requirement without using any keyboard GPIOs.
 
-Generated via [keymap-drawer](https://github.com/caksoylar/keymap-drawer/) using `nix run .#update-assets`:
+## Wiring
 
-![Layout](assets/cosmos_keymap.svg)
+Configure the sensor PCB for **3.3 V logic**: bridge **JP1 pads 1–2**, leaving pad 3 separate. Supply VIN from the nice!nano's **3.3 V VCC**, not RAW, the battery terminal, or 5 V. The PCB's regulator supplies the sensor's internal 1.8 V rail.
 
-## Building
+Use the connector's pin numbers/silkscreen; the header and FFC orders differ:
+
+| Sensor signal | J1 header pin | J2 FFC pin | nice!nano v2 connection |
+|---------------|---------------|------------|-------------------------|
+| VIN | 1 | 2 | VCC / 3.3 V |
+| GND | 2 | 1 | GND |
+| SDIO | 3 | 5 | P0.17 (Pro Micro D2) |
+| SCLK | 4 | 6 | P0.08 (Pro Micro D0) |
+| nCS | 5 | 3 | P0.06 (Pro Micro D1) |
+| MOTION | 6 | 7 | P0.02 (Pro Micro A1 / D19) |
+| nRESET | 7 | 8 | Leave unconnected; PCB pull-up holds it high |
+
+J2 pin 4 is unused. JP2 on Rev. 2.1 only connects nRESET to the FFC and can stay open for this test.
+
+**SDIO is a single bidirectional connection.** Both SPIM MOSI and MISO are assigned to P0.17 in firmware; wire only that one pin to SDIO. P0.20 from the old PMW3360 wiring is unused. MOTION is required by this interrupt-driven configuration. Reset is performed over SPI.
+
+Fit the **LM18-LSI lens**. The specified distance from the lens's lowest reference plane to the tracking surface (ball or mouse pad) is **2.2–2.6 mm**, nominally **2.4 mm**.
+
+## Build and flash
 
 ```bash
-# Build firmware (includes ZMK Studio on the right/central half)
 nix build .#firmware
+# Output: result/zmk.uf2
 
-# Generate SVG from keymap
-nix run .#update-assets
-
-# Flash (requires hardware) - interactive, goes half by half and tells you what to do
 nix run .#flash
 ```
 
-## ZMK Studio
+The flash helper prompts for a single controller. Connect it with a USB data cable, briefly short **RST to GND twice** to enter its UF2 bootloader, and mount the bootloader drive when prompted. Alternatively, copy `result/zmk.uf2` onto that drive manually. The controller reboots into **PMW3610 Test**.
 
-- `nix build .#firmware` builds ZMK Studio support by default.
-- ZMK Studio runs on the right half, since it is the split central side.
-- Connect the right half over USB, then use `Fn+N` to trigger `&studio_unlock` before connecting from [zmk.studio](https://zmk.studio/).
-- Once you start changing the keymap in ZMK Studio, changes to `boards/shields/cosmos/cosmos.keymap` will not apply again unless you restore stock settings in Studio.
+GitHub Actions builds the same single shield via `build.yaml`, with artifact name `pmw3610_test-nice_nano_v2`.
 
-## Combos
+## Bench test
 
-| Combo | Keys | Output |
-|-------|------|--------|
-| esc | J+K | ESC |
+1. Power the controller over USB and allow about **1.3 seconds** for sensor initialization. Firmware enables VCC and delays initialization by an extra second for power to settle.
+2. Open its USB serial device (usually `/dev/ttyACM0` on Linux) at 115200 baud. For example:
 
-## Important Notes
+   ```bash
+   nix shell nixpkgs#picocom -c picocom -b 115200 /dev/ttyACM0
+   ```
 
-1. **Split Keyboard**: Right half is central, left is peripheral
-2. **Bootloader**: Fn-B for left half, Fn-? for right half
-3. **Key Matrix**: 42 connected keys in a 4-row layout; the thumb cluster is the 4th row
+   Exit picocom with `Ctrl-A`, then `Ctrl-X`. The device number may differ if other serial devices are connected. If you missed startup messages, keep the terminal ready and reconnect after a single reset.
 
-## Trackball Support (Right Half)
+3. Successful initialization logs **`PMW3610 initialized`** after the driver's self-test and product-ID check (expected ID **0x3e**). Move the ball or a textured surface at the lens's working distance: the pointer should move, and the serial log should show **`x/y: .../...`** deltas.
+4. Check motion in both axes and again after leaving the sensor idle for a minute.
 
-This firmware includes support for a PMW3360/PMW3389 optical trackball sensor on the right half.
+### Diagnosing soldering or wiring problems
 
-### Flashing
+| Observation | Check |
+|-------------|-------|
+| No USB device | USB data cable, bootloader/firmware, controller power |
+| `Incorrect product id ...`, `Failed self-test ...`, or `PMW3610 initialization failed ...` | VIN/GND, JP1, regulator output (~1.8 V), SDIO/SCLK/nCS continuity and solder bridges |
+| Initialization succeeds but no motion/deltas | MOTION wiring, fitted lens, lens-to-surface distance, tracking surface |
+| Deltas appear but no pointer movement | Host USB HID device recognition; reconnect the controller |
+| Motion works but axes are reversed/swapped | Adjust `invert-x;`, `invert-y;`, or `swap-xy;` in the overlay |
 
-1. `git push`
-2. gh run download
-3. Left half flash: Fn-B, USB device appears, copy corresponding .uf2
-4. Right half flash: Fn-?, USB device appears, copy corresponding .uf2
+The initial `invert-y;` converts the sensor's native upward-positive Y to screen coordinates. Final trackball mounting may require different axis settings. Adjust `cpi = <600>;` in the overlay for sensitivity; this sensor supports **200–3200 CPI in steps of 200**.
 
-### Hardware Pinout
+## Configuration files
 
-| Signal | Pin | Description |
-|--------|-----|-------------|
-| VIN | 3.3V | Power supply (DO NOT use 5V!) |
-| GND | GND | Ground |
-| SCK | P0.08 | SPI Clock |
-| MOSI | P0.20 | SPI Data Out |
-| MISO | P0.17 | SPI Data In |
-| CS | P0.06 | SPI Chip Select |
-| MT | P0.02 | Motion interrupt (optional but recommended) |
-| RST | P1.15 | Reset (optional) |
-
-### Configuration
-
-- **Driver**: george-norton/zmk-driver-pmw3360
-- **CPI**: 50 (minimum for precision, configurable 50-16000)
-- **Mode**: Interrupt-based (uses MT pin for better responsiveness)
-- **IRQ GPIO**: P0.02 with `GPIO_ACTIVE_LOW | GPIO_PULL_UP`
-- **Orientation**: 
-  - `invert-x`: enabled (flips left-right movement)
-  - `rotate-270`: enabled (fixes trackball orientation)
-- **Lift-off Distance**: `lift-height-3mm` enabled (3mm lift-off distance)
-- **Input Listener**: `trackball_listener` node processes sensor events and converts them to mouse movements
-- **Scroll Mode**: Hold the RAISE layer thumb key to switch trackball to scroll mode (X/Y axis → horizontal/vertical scroll)
-
-### Troubleshooting
-
-- No movement: Check sensor distance (should be very close to ball)
-- Wrong directions: Current config uses `invert-x` and `rotate-270`. Adjust these if movement feels wrong
-- Too sensitive: Lower CPI value (try 50-400 range)
-- Not sensitive enough: Raise CPI value
-- Erratic behavior: Verify `irq-gpios` is configured with `GPIO_ACTIVE_LOW | GPIO_PULL_UP` on P0.02
-
-## Credits
-
-Based on [Mark Stosberg's QMK Corne layout](https://github.com/markstos/qmk_userspace)
+- `boards/shields/pmw3610_test/pmw3610_test.overlay`: pinout, sensor settings, USB mouse input listener.
+- `boards/shields/pmw3610_test/pmw3610_test.conf`: USB-only operation, power-up delay, debug logging.
+- `config/west.yml`: ZMK v0.3 and the [badjeff PMW3610 driver](https://github.com/badjeff/zmk-pmw3610-driver/tree/5c5af40de4d8cdf55dc63c4c5907af1e52da6a95), pinned to its compatible `zmk-0.3` revision.
+- `flake.nix` / `build.yaml`: local and CI build targets.

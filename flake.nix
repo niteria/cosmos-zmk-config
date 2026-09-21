@@ -21,7 +21,7 @@
       packages = forAllSystems (system: rec {
         default = firmware;
 
-        firmware = zmk-nix.legacyPackages.${system}.buildSplitKeyboard {
+        firmware = zmk-nix.legacyPackages.${system}.buildKeyboard {
           name = "firmware";
 
           src = nixpkgs.lib.sourceFilesBySuffices self [
@@ -40,14 +40,13 @@
           ];
 
           board = "nice_nano_v2";
-          shield = "cosmos_%PART%";
-          centralPart = "right";
-          enableZmkStudio = true;
+          shield = "pmw3610_test";
+          snippets = [ "zmk-usb-logging" ];
 
-          zephyrDepsHash = "sha256-ZZ8y4DkCqklcUDXezjdFbAcJedxCvqAS6fd8oFvDGTE=";
+          zephyrDepsHash = "sha256-d59ARpUFZcvbfZcRuX0BsDfGY9cLOXNyJGQkzaz7sME=";
 
           meta = {
-            description = "ZMK firmware";
+            description = "Standalone PMW3610 USB trackball test firmware";
             license = nixpkgs.lib.licenses.mit;
             platforms = nixpkgs.lib.platforms.all;
           };
