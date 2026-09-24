@@ -2,6 +2,10 @@
 
 This is an adaptation of [Mark Stosberg's Corne layout](https://github.com/markstos/qmk_userspace/blob/main/keyboards/crkbd/keymaps/markstos/keymap.c) for the Cosmos split keyboard running ZMK firmware.
 
+**PMW3610 + three mouse buttons:** firmware is implemented and builds for both halves. See the [pin allocation, wiring, and hardware bring-up guide](TRACKBALL_MIGRATION.md).
+
+> **Assembly note — C1 substitution:** The tested Sidera board uses **4.7 µF for C1** instead of the BOM's **3.3 µF**, because 3.3 µF was hard to find. It still seems to work fine in the standalone trackball test.
+
 ## Layout Overview
 
 Generated via [keymap-drawer](https://github.com/caksoylar/keymap-drawer/) using `nix run .#update-assets`:
@@ -13,6 +17,7 @@ Generated via [keymap-drawer](https://github.com/caksoylar/keymap-drawer/) using
 ```bash
 # Build firmware (includes ZMK Studio on the right/central half)
 nix build .#firmware
+# Outputs: result/zmk_left.uf2 and result/zmk_right.uf2
 
 # Generate SVG from keymap
 nix run .#update-assets
@@ -54,48 +59,57 @@ Replace `/dev/sdX` with the device printed by the flasher, for example `/dev/sdb
 
 ## Trackball Support (Right Half)
 
-This firmware includes support for a PMW3360/PMW3389 optical trackball sensor on the right half.
+The right half uses a [Sidera PMW3610 Rev. 2.x](https://siderakb.ziteh.dev/mouse-sensors/pmw3610/rev2/) sensor and three direct-wired microswitches. The full split firmware has been built and its resolved pins/settings checked; the integrated hardware test is pending.
 
 ### Flashing
 
-1. `git push`
-2. gh run download
-3. Left half flash: Fn-B, USB device appears, copy corresponding .uf2
-4. Right half flash: Fn-?, USB device appears, copy corresponding .uf2
+Use `nix run .#flash` to flash both halves, or `nix run .#flash -- right` for just the central half. For manual copying, the files are `result/zmk_left.uf2` and `result/zmk_right.uf2`.
+
+Enter the UF2 bootloader using Fn-B on the left, Fn-? on the right, or a double reset. Apply the new right-half firmware before testing the buttons: P0.20 was a SPI output in the old firmware.
 
 ### Hardware Pinout
 
 | Signal | Pin | Description |
 |--------|-----|-------------|
-| VIN | 3.3V | Power supply (DO NOT use 5V!) |
+| VIN | 3.3V VCC | Power; bridge sensor JP1 pads 1–2 for 3.3 V logic |
 | GND | GND | Ground |
-| SCK | P0.08 | SPI Clock |
-| MOSI | P0.20 | SPI Data Out |
-| MISO | P0.17 | SPI Data In |
-| CS | P0.06 | SPI Chip Select |
-| MT | P0.02 | Motion interrupt (optional but recommended) |
-| RST | P1.15 | Reset (optional) |
+| SCLK | P0.08 | SPI clock |
+| SDIO | P0.17 | Single bidirectional data wire; both SPIM MOSI/MISO use this pin |
+| nCS | P0.06 | SPI chip select |
+| MOTION | P0.02 | Required motion interrupt |
+| nRESET | Unconnected | PCB pull-up; the driver resets over SPI |
+
+| Mouse button | GPIO | Pro Micro alias |
+|--------------|------|-----------------|
+| Left | P0.20 | D3 |
+| Right | P1.15 | A0 / D18 |
+| Middle | P0.29 | A2 / D20 |
+
+Connect each switch's **NO** terminal to its GPIO and **COM** to a shared GND; leave **NC** unconnected. Firmware provides pull-ups and 5 ms debounce. P0.31 remains spare. The [migration guide](TRACKBALL_MIGRATION.md) includes J1/FFC pin numbers and the complete matrix pin audit.
 
 ### Configuration
 
-- **Driver**: george-norton/zmk-driver-pmw3360
-- **CPI**: 50 (minimum for precision, configurable 50-16000)
-- **Mode**: Interrupt-based (uses MT pin for better responsiveness)
+- **Driver**: `badjeff/zmk-pmw3610-driver`, pinned to tested ZMK v0.3 revision `5c5af40` in `config/west.yml`.
+- **CPI**: 2400, increased from the initial 600 for higher sensitivity; configurable from 200–3200 in steps of 200.
+- **Mode**: Interrupt-based, with a 1000 ms extra power-up delay.
 - **IRQ GPIO**: P0.02 with `GPIO_ACTIVE_LOW | GPIO_PULL_UP`
-- **Orientation**: 
-  - `invert-x`: enabled (flips left-right movement)
-  - `rotate-270`: enabled (fixes trackball orientation)
-- **Lift-off Distance**: `lift-height-3mm` enabled (3mm lift-off distance)
+- **Orientation**: `invert-x` enabled, `invert-y` disabled. This reverses both axes relative to the initial bench configuration, following the mounted trackball's direction test.
+- **Lens spacing**: LM18-LSI lens, nominally 2.4 mm from its lowest reference plane to the ball (specified range 2.2–2.6 mm). There is no 2 mm / 3 mm lift-off setting.
 - **Input Listener**: `trackball_listener` node processes sensor events and converts them to mouse movements
 - **Scroll Mode**: Hold the RAISE layer thumb key to switch trackball to scroll mode (X/Y axis → horizontal/vertical scroll)
+- **Buttons**: independent GPIO input listener, active on every layer. They are not extra remappable positions in ZMK Studio.
+- **Configuration files**: `config/cosmos.conf` is shared by both halves; `config/cosmos_right.conf` enables the sensor, GPIO buttons, and right-side USB logging.
+
+The right half exposes separate USB serial interfaces for the log console and ZMK Studio. The log console reports `PMW3610 initialized` on successful sensor startup. To log individual movement deltas, change `CONFIG_PMW3610_LOG_LEVEL_INF=y` to `CONFIG_PMW3610_LOG_LEVEL_DBG=y` in `config/cosmos_right.conf` and rebuild.
 
 ### Troubleshooting
 
-- No movement: Check sensor distance (should be very close to ball)
-- Wrong directions: Current config uses `invert-x` and `rotate-270`. Adjust these if movement feels wrong
-- Too sensitive: Lower CPI value (try 50-400 range)
-- Not sensitive enough: Raise CPI value
-- Erratic behavior: Verify `irq-gpios` is configured with `GPIO_ACTIVE_LOW | GPIO_PULL_UP` on P0.02
+- No movement: Check 3.3 V power, JP1, SDIO/SCLK/nCS/MOTION wiring, and lens-to-ball distance.
+- Wrong directions: Adjust `swap-xy`, `invert-x`, and `invert-y` in `cosmos_right.overlay`.
+- Too sensitive: Lower CPI in steps of 200 (e.g. 1000 or 800), down to a minimum of 200; for finer scaling use a ZMK input processor.
+- Not sensitive enough: Raise CPI in steps of 200.
+- Missing/inverted clicks: Check the switch's COM/NO terminals and the three GPIO assignments above.
+- Studio connection fails: Select the Studio USB serial interface rather than the log console, then unlock using Fn-N.
 
 ## Credits
 

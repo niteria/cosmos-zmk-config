@@ -44,7 +44,14 @@
           centralPart = "right";
           enableZmkStudio = true;
 
-          zephyrDepsHash = "sha256-ZZ8y4DkCqklcUDXezjdFbAcJedxCvqAS6fd8oFvDGTE=";
+          zephyrDepsHash = "sha256-d59ARpUFZcvbfZcRuX0BsDfGY9cLOXNyJGQkzaz7sME=";
+
+          # Retain each half's resolved pin/configuration data for wiring audits.
+          postInstall = ''
+            mkdir -p "$out/diagnostics"
+            cp zephyr/.config "$out/diagnostics/zephyr.config"
+            cp zephyr/zephyr.dts "$out/diagnostics/zephyr.dts"
+          '';
 
           meta = {
             description = "ZMK firmware";
