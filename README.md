@@ -93,7 +93,7 @@ Connect each switch's **NO** terminal to its GPIO and **COM** to a shared GND; l
 - **CPI**: 2400, increased from the initial 600 for higher sensitivity; configurable from 200–3200 in steps of 200.
 - **Mode**: Interrupt-based, with a 1000 ms extra power-up delay.
 - **IRQ GPIO**: P0.02 with `GPIO_ACTIVE_LOW | GPIO_PULL_UP`
-- **Orientation**: `invert-x` enabled, `invert-y` disabled. This reverses both axes relative to the initial bench configuration, following the mounted trackball's direction test.
+- **Orientation**: `invert-y` enabled, `invert-x` disabled. This reverses both axes relative to the previous mounted configuration, following the sensor remount.
 - **Lens spacing**: LM18-LSI lens, nominally 2.4 mm from its lowest reference plane to the ball (specified range 2.2–2.6 mm). There is no 2 mm / 3 mm lift-off setting.
 - **Input Listener**: `trackball_listener` node processes sensor events and converts them to mouse movements
 - **Scroll Mode**: Hold the RAISE layer thumb key to switch trackball to scroll mode (X/Y axis → horizontal/vertical scroll)

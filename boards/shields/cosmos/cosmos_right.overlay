@@ -50,9 +50,9 @@
         reg = <0>;
         spi-max-frequency = <2000000>;
         irq-gpios = <&gpio0 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-        // Mounted orientation: reverse both axes relative to the bench test.
+        // Orientation for the remounted sensor: normal X, inverted Y.
         cpi = <2400>;
-        invert-x;
+        invert-y;
         evt-type = <INPUT_EV_REL>;
         x-input-code = <INPUT_REL_X>;
         y-input-code = <INPUT_REL_Y>;
