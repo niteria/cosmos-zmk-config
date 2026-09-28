@@ -95,9 +95,9 @@ Connect each switch's **NO** terminal to its GPIO and **COM** to a shared GND; l
 - **IRQ GPIO**: P0.02 with `GPIO_ACTIVE_LOW | GPIO_PULL_UP`
 - **Orientation**: `invert-y` enabled, `invert-x` disabled. This reverses both axes relative to the previous mounted configuration, following the sensor remount.
 - **Lens spacing**: LM18-LSI lens, nominally 2.4 mm from its lowest reference plane to the ball (specified range 2.2–2.6 mm). There is no 2 mm / 3 mm lift-off setting.
-- **Input Listener**: `trackball_listener` node processes sensor events and converts them to mouse movements
+- **Input Listener**: `trackball_listener` node converts sensor events to mouse movements without changing keyboard layers
 - **Scroll Mode**: Hold the RAISE layer thumb key to switch trackball to scroll mode (X/Y axis → horizontal/vertical scroll)
-- **Buttons**: independent GPIO input listener, active on every layer. They are not extra remappable positions in ZMK Studio.
+- **Buttons**: three dedicated microswitches with an independent GPIO input listener, active on every layer. Keyboard keys do not send mouse clicks. The buttons are not extra remappable positions in ZMK Studio.
 - **Configuration files**: `config/cosmos.conf` is shared by both halves; `config/cosmos_right.conf` enables the sensor, GPIO buttons, and right-side USB logging.
 
 The right half exposes separate USB serial interfaces for the log console and ZMK Studio. The log console reports `PMW3610 initialized` on successful sensor startup. To log individual movement deltas, change `CONFIG_PMW3610_LOG_LEVEL_INF=y` to `CONFIG_PMW3610_LOG_LEVEL_DBG=y` in `config/cosmos_right.conf` and rebuild.
