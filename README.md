@@ -12,6 +12,22 @@ Generated via [keymap-drawer](https://github.com/caksoylar/keymap-drawer/) using
 
 ![Layout](assets/cosmos_keymap.svg)
 
+### Hyprland shortcuts
+
+See the [Cosmos Hyprland guide](HYPRLAND.md) for IJKL navigation on Raise, physical
+key sequences, Deck/zuffie differences, and optional Func utility additions.
+
+<details>
+<summary>Show the current Hyprland shortcut map</summary>
+
+Center labels are actions; top labels add Shift; bottom labels identify the
+physical Base key. Pink keys are held. **D** means Deck-only and **Z** zuffie-only.
+These are reference overlays for the current bindings, not extra firmware layers.
+
+![Hyprland shortcuts](assets/cosmos_hyprland.svg)
+
+</details>
+
 ## Building
 
 ```bash
@@ -19,7 +35,7 @@ Generated via [keymap-drawer](https://github.com/caksoylar/keymap-drawer/) using
 nix build .#firmware
 # Outputs: result/zmk_left.uf2 and result/zmk_right.uf2
 
-# Generate SVG from keymap
+# Generate keymap and Hyprland reference SVGs
 nix run .#update-assets
 
 # Flash (requires hardware) - interactive, goes half by half and tells you what to do

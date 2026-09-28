@@ -79,9 +79,10 @@
 
         raise_layer {
             display-name = "Raise";
+            // Inverted-T navigation: I up, J left, K down, L right.
             bindings = <
-                &trans    &kp DEL   &kp INS   &kp UNDER &kp PLUS  &kp PG_UP &trans    &trans    &trans    &kp BSLH  &kp PIPE  &trans
-                &trans    &kp HOME  &kp END   &kp MINUS &kp EQUAL &kp PG_DN &kp LEFT  &kp DOWN  &kp UP    &kp RIGHT &kp K_APP &trans
+                &trans    &kp DEL   &kp INS   &kp UNDER &kp PLUS  &kp PG_UP &trans    &trans    &kp UP    &kp BSLH  &kp PIPE  &trans
+                &trans    &kp HOME  &kp END   &kp MINUS &kp EQUAL &kp PG_DN &trans    &kp LEFT  &kp DOWN  &kp RIGHT &kp K_APP &trans
                 &trans    &kp LT    &kp GT    &kp K_COPY&kp K_PASTE&kp SEMI &kp K_MUTE &kp K_PREV &kp K_NEXT &kp K_VOL_DN &kp K_VOL_UP &trans
                                     &ctl_esc LCTRL ESC &trans    &mo 2     &trans    &trans    &trans
             >;

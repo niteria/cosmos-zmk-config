@@ -1,0 +1,60 @@
+# Documentation only: these Func additions are NOT in cosmos.keymap.
+layout:
+  zmk_keyboard: corne
+  layout_name: foostan_corne_6col_layout
+draw_config:
+  footer_text: "PROPOSAL ONLY | Green: new Func action | Top: add Shift | Bottom: Base key | Gray: existing Func action"
+  svg_extra_style: |
+    svg.keymap { font-size: 12px; }
+    text.key.hold { font-size: 9px; fill: #667085; }
+    text.key.shifted { font-size: 9px; fill: #925600; }
+    rect.proposed { fill: #dcfce7; stroke: #16a34a; }
+    rect.existing { fill: #f6f8fa; }
+    text.existing { fill: #667085; }
+layers:
+  "PROPOSAL - Func additions (tap Func once, or hold for several actions)":
+    - {t: Tab, h: TAB, type: existing}
+    - {t: F1, h: Q, type: existing}
+    - {t: F2, h: W, type: existing}
+    - {t: F3, h: E, type: existing}
+    - {t: F4, h: R, type: existing}
+    - {t: F5, h: T, type: existing}
+    - {t: F6, h: Y, type: existing}
+    - {t: F7, h: U, type: existing}
+    - {t: F8, h: I, type: existing}
+    - {t: F9, h: O, type: existing}
+    - {t: F10, h: P, type: existing}
+    - {t: Delete, h: DEL, type: existing}
+
+    - {t: Alt, h: LALT, type: existing}
+    - {t: F11, h: A, type: existing}
+    - {t: F12, h: S, type: existing}
+    - {t: "Width -", s: "Height -", h: D, type: proposed}
+    - {t: "Width +", s: "Height +", h: F, type: proposed}
+    - {t: G, h: G, type: existing}
+    - {t: H, h: H, type: existing}
+    - {t: J, h: J, type: existing}
+    - {t: K, h: K, type: existing}
+    - {t: L, h: L, type: existing}
+    - {t: Print, s: "Window", h: Quote, type: proposed}
+    - {t: RAlt, h: RALT, type: existing}
+
+    - {t: "+SHIFT", h: Shift, type: ghost}
+    - {t: Caps, h: Z, type: existing}
+    - {t: "Sft+Del", h: X, type: existing}
+    - {t: "Ctl+Ins", h: C, type: existing}
+    - {t: "Sft+Ins", h: V, type: existing}
+    - {t: "Boot L", h: B, type: existing}
+    - {t: Studio, h: N, type: existing}
+    - {t: "Play/Pause", h: M, type: proposed}
+    - {t: "Bright -", h: Comma, type: proposed}
+    - {t: "Bright +", h: Dot, type: proposed}
+    - {t: "Boot R", h: Slash, type: existing}
+    - {t: FUNC, h: Func, type: held}
+
+    - {t: Ctrl, h: Ctrl, type: existing}
+    - {t: Enter, h: "hold Super", type: existing}
+    - {t: Tab, h: "hold Lower", type: existing}
+    - {t: Bspc, h: "hold Raise", type: existing}
+    - {t: Space, h: Space, type: existing}
+    - {t: Shift, h: Shift, type: existing}

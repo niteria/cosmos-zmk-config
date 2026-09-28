@@ -103,7 +103,12 @@
                                 echo "Generating SVG from parsed keymap..."
                                 keymap draw "''${REPO_ROOT}/assets/cosmos_keymap.yaml" -o "''${REPO_ROOT}/assets/cosmos_keymap.svg"
 
-                                                                echo "Successfully updated assets/cosmos_keymap.svg!"
+                                for reference in cosmos_hyprland cosmos_hyprland_proposal; do
+                                    echo "Generating ''${reference}.svg..."
+                                    keymap draw "''${REPO_ROOT}/assets/''${reference}.yaml" -o "''${REPO_ROOT}/assets/''${reference}.svg"
+                                done
+
+                                                                echo "Successfully updated keymap and Hyprland reference SVGs!"
               '';
             }
           }/bin/update-assets";

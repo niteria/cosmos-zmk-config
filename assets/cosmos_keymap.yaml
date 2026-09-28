@@ -121,8 +121,7 @@ layers:
       type: trans
     - t: ▽
       type: trans
-    - t: ▽
-      type: trans
+    - UP
     - \
     - '|'
     - t: ▽
@@ -134,9 +133,10 @@ layers:
     - '-'
     - '='
     - PG DN
+    - t: ▽
+      type: trans
     - LEFT
     - DOWN
-    - UP
     - RIGHT
     - APP
     - t: ▽

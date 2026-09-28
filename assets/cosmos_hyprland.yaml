@@ -1,0 +1,306 @@
+# Current shortcuts, not firmware layers. See ../HYPRLAND.md for gestures and host scope.
+layout:
+  zmk_keyboard: corne
+  layout_name: foostan_corne_6col_layout
+draw_config:
+  combo_h: 34
+  footer_text: "Center: action | Top: add Shift | Bottom: Base key | D: Deck | Z: zuffie | See HYPRLAND.md"
+  svg_extra_style: |
+    svg.keymap { font-size: 12px; }
+    text.key.hold { font-size: 9px; fill: #667085; }
+    text.key.shifted { font-size: 9px; fill: #925600; }
+    text.combo.shifted { fill: #925600; }
+    rect.idle { fill: #ffffff; stroke: #e5e7eb; }
+    text.idle { fill: #98a2b3; }
+    rect.deck { fill: #e0f2fe; }
+    rect.zuffie { fill: #ede9fe; }
+layers:
+  "Super - Base (hold Enter/Super; top legends add Shift)":
+    - {t: "Launch D", h: TAB, type: deck}
+    - {t: "WS 1", s: "Move 1", h: Q}
+    - {t: "WS 2", s: "Move 2", h: W}
+    - {t: "WS 3", s: "Move 3", h: E}
+    - {t: "WS 4", s: "Move 4", h: R}
+    - {t: "WS 5", s: "Move 5", h: T}
+    - {t: "WS 6", s: "Move 6", h: Y}
+    - {t: "WS 7", s: "Move 7", h: U}
+    - {t: "WS 8", s: "Move 8", h: I}
+    - {t: "WS 9", s: "Move 9", h: O}
+    - {t: "WS 10", s: "Move 10", h: P}
+    - {h: DEL, type: idle}
+
+    - {h: LALT, type: idle}
+    - {h: A, type: idle}
+    - {t: Magic, s: "To magic", h: S}
+    - {h: D, type: idle}
+    - {h: F, type: idle}
+    - {t: "Hint Z", s: "Run Z", h: G, type: zuffie}
+    - {h: H, type: idle}
+    - {h: J, type: idle}
+    - {h: K, type: idle}
+    - {h: L, type: idle}
+    - {h: Quote, type: idle}
+    - {h: RALT, type: idle}
+
+    - {t: "+SHIFT", h: Shift, type: ghost}
+    - {h: Z, type: idle}
+    - {h: X, type: idle}
+    - {t: Sets, h: C}
+    - {h: V, type: idle}
+    - {h: B, type: idle}
+    - {h: N, type: idle}
+    - {h: M, type: idle}
+    - {h: Comma, type: idle}
+    - {h: Dot, type: idle}
+    - {h: Slash, type: idle}
+    - {h: Func, type: idle}
+
+    - {h: Ctrl, type: idle}
+    - {t: SUPER, h: Enter, type: held}
+    - {t: "Launch D", h: Tab, type: deck}
+    - {t: "Close D", h: Bspc, type: deck}
+    - {t: Launch, h: Space}
+    - {h: Shift, type: idle}
+
+  "Alt - Base (hold LEFT Alt; top legends add Shift)":
+    - {h: TAB, type: idle}
+    - {s: Close, h: Q}
+    - {h: W, type: idle}
+    - {h: E, type: idle}
+    - {t: Parent, s: Reload, h: R}
+    - {t: "Tab grp", h: T}
+    - {h: Y, type: idle}
+    - {h: U, type: idle}
+    - {h: I, type: idle}
+    - {t: ChatGPT, h: O}
+    - {t: Perplx, h: P}
+    - {h: DEL, type: idle}
+
+    - {t: ALT, h: LALT, type: held}
+    - {h: A, type: idle}
+    - {t: "Tab on/off", h: S}
+    - {h: D, type: idle}
+    - {t: Files, h: F}
+    - {t: Grok, s: "Flip grp", h: G}
+    - {h: H, type: idle}
+    - {h: J, type: idle}
+    - {h: K, type: idle}
+    - {h: L, type: idle}
+    - {h: Quote, type: idle}
+    - {h: RALT, type: idle}
+
+    - {t: "+SHIFT", h: Shift, type: ghost}
+    - {h: Z, type: idle}
+    - {h: X, type: idle}
+    - {h: C, type: idle}
+    - {t: "V group", h: V}
+    - {t: "H group", h: B}
+    - {h: N, type: idle}
+    - {h: M, type: idle}
+    - {h: Comma, type: idle}
+    - {h: Dot, type: idle}
+    - {h: Slash, type: idle}
+    - {h: Func, type: idle}
+
+    - {h: Ctrl, type: idle}
+    - {t: Terminal, h: "tap Enter"}
+    - {h: Tab, type: idle}
+    - {h: Bspc, type: idle}
+    - {s: Waybar, h: Space}
+    - {h: Shift, type: idle}
+
+  "Alt + Raise - focus / resize (top legends add Shift)":
+    - {h: TAB, type: idle}
+    - {h: Q, type: idle}
+    - {h: W, type: idle}
+    - {h: E, type: idle}
+    - {h: R, type: idle}
+    - {h: T, type: idle}
+    - {h: Y, type: idle}
+    - {h: U, type: idle}
+    - {t: "Focus ↑", s: "Smart ↑", h: "I → ↑"}
+    - {h: O, type: idle}
+    - {h: P, type: idle}
+    - {h: DEL, type: idle}
+
+    - {t: ALT, h: LALT, type: held}
+    - {h: A, type: idle}
+    - {h: S, type: idle}
+    - {t: "Width -", s: "Height -", h: "D → -"}
+    - {t: "Width +", s: "Height +", h: "F → ="}
+    - {h: G, type: idle}
+    - {h: H, type: idle}
+    - {t: "Focus ←", s: "Smart ←", h: "J → ←"}
+    - {t: "Focus ↓", s: "Smart ↓", h: "K → ↓"}
+    - {t: "Focus →", s: "Smart →", h: "L → →"}
+    - {h: Quote, type: idle}
+    - {h: RALT, type: idle}
+
+    - {t: "+SHIFT", h: Shift, type: ghost}
+    - {h: Z, type: idle}
+    - {h: X, type: idle}
+    - {h: C, type: idle}
+    - {h: V, type: idle}
+    - {h: B, type: idle}
+    - {h: N, type: idle}
+    - {h: M, type: idle}
+    - {h: Comma, type: idle}
+    - {h: Dot, type: idle}
+    - {h: Slash, type: idle}
+    - {h: Func, type: idle}
+
+    - {h: Ctrl, type: idle}
+    - {h: Enter, type: idle}
+    - {h: Tab, type: idle}
+    - {t: RAISE, h: Bspc, type: held}
+    - {h: Space, type: idle}
+    - {h: Shift, type: idle}
+
+  "Alt + Lower - workspace numbers (top legends add Shift)":
+    - {h: TAB, type: idle}
+    - {h: Q, type: idle}
+    - {h: W, type: idle}
+    - {h: E, type: idle}
+    - {h: R, type: idle}
+    - {h: T, type: idle}
+    - {h: Y, type: idle}
+    - {h: U, type: idle}
+    - {h: I, type: idle}
+    - {h: O, type: idle}
+    - {h: P, type: idle}
+    - {h: DEL, type: idle}
+
+    - {t: ALT, h: LALT, type: held}
+    - {t: "WS 1", s: "Move 1", h: "A → 1"}
+    - {t: "WS 2", s: "Move 2", h: "S → 2"}
+    - {t: "WS 3", s: "Move 3", h: "D → 3"}
+    - {t: "WS 4", s: "Move 4", h: "F → 4"}
+    - {t: "WS 5", s: "Move 5", h: "G → 5"}
+    - {t: "WS 6", s: "Move 6", h: "H → 6"}
+    - {t: "WS 7", s: "Move 7", h: "J → 7"}
+    - {t: "WS 8", s: "Move 8", h: "K → 8"}
+    - {t: "WS 9", s: "Move 9", h: "L → 9"}
+    - {t: "WS 10", s: "Move 10", h: "Quote→0"}
+    - {h: RALT, type: idle}
+
+    - {t: "+SHIFT", h: Shift, type: ghost}
+    - {h: Z, type: idle}
+    - {h: X, type: idle}
+    - {h: C, type: idle}
+    - {h: V, type: idle}
+    - {h: B, type: idle}
+    - {h: N, type: idle}
+    - {h: M, type: idle}
+    - {h: Comma, type: idle}
+    - {h: Dot, type: idle}
+    - {h: Slash, type: idle}
+    - {h: Func, type: idle}
+
+    - {h: Ctrl, type: idle}
+    - {h: Enter, type: idle}
+    - {t: LOWER, h: Tab, type: held}
+    - {h: Bspc, type: idle}
+    - {h: Space, type: idle}
+    - {t: ":", h: "Shift key", type: idle}
+
+  "Raise - navigation / media (hold Backspace/Raise)":
+    - {h: TAB, type: idle}
+    - {t: Delete, h: Q}
+    - {t: Insert, h: W}
+    - {t: "_", h: E}
+    - {t: "+", h: R}
+    - {t: "Page ↑", h: T}
+    - {h: Y, type: idle}
+    - {h: U, type: idle}
+    - {t: "↑", h: I}
+    - {t: "\\", h: O}
+    - {t: "|", h: P}
+    - {h: DEL, type: idle}
+
+    - {h: LALT, type: idle}
+    - {t: Home, h: A}
+    - {t: End, h: S}
+    - {t: "-", h: D}
+    - {t: "=", h: F}
+    - {t: "Page ↓", h: G}
+    - {h: H, type: idle}
+    - {t: "←", h: J}
+    - {t: "↓", h: K}
+    - {t: "→", h: L}
+    - {t: Menu, h: Quote}
+    - {h: RALT, type: idle}
+
+    - {h: Shift, type: idle}
+    - {t: "<", h: Z}
+    - {t: ">", h: X}
+    - {t: Copy, h: C}
+    - {t: Paste, h: V}
+    - {t: ";", h: B}
+    - {t: Mute, h: N}
+    - {t: Previous, h: M}
+    - {t: Next, h: Comma}
+    - {t: "Vol -", h: Dot}
+    - {t: "Vol +", h: Slash}
+    - {h: Func, type: idle}
+
+    - {t: Escape, h: "Ctrl thumb"}
+    - {h: Enter, type: idle}
+    - {t: "Raise too", h: Tab}
+    - {t: RAISE, h: Bspc, type: held}
+    - {h: Space, type: idle}
+    - {h: Shift, type: idle}
+
+  "Deck only - Super + Raise (top legends add Shift)":
+    - {h: TAB, type: idle}
+    - {h: Q, type: idle}
+    - {h: W, type: idle}
+    - {h: E, type: idle}
+    - {h: R, type: idle}
+    - {h: T, type: idle}
+    - {h: Y, type: idle}
+    - {h: U, type: idle}
+    - {t: "Focus ↑", s: "hy3 ↑", h: "I → ↑", type: deck}
+    - {h: O, type: idle}
+    - {h: P, type: idle}
+    - {h: DEL, type: idle}
+
+    - {h: LALT, type: idle}
+    - {h: A, type: idle}
+    - {h: S, type: idle}
+    - {h: D, type: idle}
+    - {h: F, type: idle}
+    - {h: G, type: idle}
+    - {h: H, type: idle}
+    - {t: "Focus ←", s: "hy3 ←", h: "J → ←", type: deck}
+    - {t: "Focus ↓", s: "hy3 ↓", h: "K → ↓", type: deck}
+    - {t: "Focus →", s: "hy3 →", h: "L → →", type: deck}
+    - {h: Quote, type: idle}
+    - {h: RALT, type: idle}
+
+    - {t: "+SHIFT", h: Shift, type: ghost}
+    - {h: Z, type: idle}
+    - {h: X, type: idle}
+    - {h: C, type: idle}
+    - {h: V, type: idle}
+    - {h: B, type: idle}
+    - {h: N, type: idle}
+    - {h: M, type: idle}
+    - {h: Comma, type: idle}
+    - {h: Dot, type: idle}
+    - {h: Slash, type: idle}
+    - {h: Func, type: idle}
+
+    - {h: Ctrl, type: idle}
+    - {t: SUPER, h: Enter, type: held}
+    - {h: Tab, type: idle}
+    - {t: RAISE, h: Bspc, type: held}
+    - {h: Space, type: idle}
+    - {h: Shift, type: idle}
+combos:
+  - p: [19, 20]
+    k: {t: "Lock(Z)", s: "Exit(Z)"}
+    l: ["Super - Base (hold Enter/Super; top legends add Shift)"]
+    a: mid
+    type: zuffie
+    w: 52
+    h: 34
