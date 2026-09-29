@@ -69,7 +69,11 @@
           };
         };
 
-        flash = zmk-nix.packages.${system}.flash.override { inherit firmware; };
+        flash = import ./nix/flash.nix {
+          pkgs = nixpkgs.legacyPackages.${system};
+          inherit firmware;
+          publicFlasher = zmk-nix.packages.${system}.flash.override { inherit firmware; };
+        };
         update = zmk-nix.packages.${system}.update;
       });
 
@@ -133,6 +137,15 @@
       });
 
       checks = forAllSystems (system: {
+        flash = nixpkgs.legacyPackages.${system}.runCommand "cosmos-flash-tests" { } ''
+          ${nixpkgs.legacyPackages.${system}.python3}/bin/python3 -B ${./tests/test_flash.py} ${./scripts/flash.py}
+          touch $out
+        '';
+        unlock-storage = nixpkgs.legacyPackages.${system}.runCommandCC "cosmos-unlock-storage-tests" { } ''
+          $CC -std=c11 -Wall -Wextra -Werror ${./tests/unlock_storage.c} -I${./src} -o storage-test
+          ./storage-test
+          touch $out
+        '';
         unlock-guard = nixpkgs.legacyPackages.${system}.runCommandCC "cosmos-unlock-guard-tests" { } ''
           $CC -std=c11 -Wall -Wextra -Werror ${./tests/unlock_guard.c} -I${./src} -o guard-test
           ./guard-test

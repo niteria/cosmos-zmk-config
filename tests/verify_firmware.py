@@ -7,13 +7,13 @@ from elftools.elf.elffile import ELFFile
 with open(sys.argv[1], "rb") as stream:
     elf = ELFFile(stream)
     symbols = {s.name: s.entry["st_value"] for s in elf.get_section_by_name(".symtab").iter_symbols()}
-    slot = elf.get_section_by_name(".cosmos_unlock_slot")
+    slot = elf.get_section_by_name(".cosmos_unlock_provision")
     if slot is None:
         assert "zmk_listener_cosmos_unlock" not in symbols, "Unlock code without its slot"
         print("Peripheral: no unlock code or secret slot")
         sys.exit(0)
 
-    expected = b"COSMOS-UNLOCK-V1" + struct.pack("<II", 1, 0) + bytes(232)
+    expected = b"COSMOS-UNLOCK-V2" + struct.pack("<II", 2, 0) + bytes(232)
     assert slot.data() == expected, "Public secret slot is not empty or has wrong size"
     assert slot["sh_addr"] % 256 == 0, "Secret slot must occupy one aligned UF2 payload"
     assert not slot["sh_flags"] & 1, "Secret slot must remain in read-only flash"
@@ -32,4 +32,6 @@ with open(sys.argv[1], "rb") as stream:
     assert first == symbols["zmk_listener_cosmos_unlock"], "Physical observer is not first"
     assert "__wrap_hid_int_ep_write" in symbols
     assert "__wrap_usb_hid_register_device" in symbols
-    print(f"Central: empty unlock slot at {slot['sh_addr']:#x}; physical observer precedes combos")
+    assert "settings_handler_cosmos_unlock" in symbols
+    assert "cosmos_unlock_credential_ready" in symbols
+    print(f"Central: empty provisioning mailbox at {slot['sh_addr']:#x}; persistent settings and physical guard present")

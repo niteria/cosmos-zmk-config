@@ -40,6 +40,9 @@ nix run .#update-assets
 
 # Flash (requires hardware) - interactive, goes half by half and tells you what to do
 nix run .#flash
+
+# Store the deployed runtime credential in the right half's persistent settings
+nix run .#flash -- right --provision
 ```
 
 > [!WARNING]
@@ -65,11 +68,11 @@ Replace `/dev/sdX` with the device printed by the flasher, for example `/dev/sdb
 | Combo | Keys | Output |
 |-------|------|--------|
 | esc | J+K | ESC |
-| private unlock | Hold physical Func+J+K+L for 2 seconds | Dedicated Deck passphrase + Enter, USB-only; requires personalized right-half firmware |
+| private unlock | Hold physical Func+J+K+L for 2 seconds | Dedicated Deck passphrase + Enter, USB-only; requires a provisioned right half |
 
-See [private unlock setup and firmware handling](UNLOCK.md). Public builds contain
-an empty slot, so the unlock chord is inactive until personalized with the local
-agenix-backed helper in `~/zuffie-nixos`.
+See [persistent private unlock setup](UNLOCK.md). Provision once with
+`nix run .#flash -- right --provision` and the deployed runtime secret; ordinary
+public firmware updates then retain the credential in the keyboard's settings partition.
 
 ## Important Notes
 
@@ -106,7 +109,7 @@ Enter the UF2 bootloader using Fn-B on the left, Fn-? on the right, or a double 
 | Right | P1.15 | A0 / D18 |
 | Middle | P0.29 | A2 / D20 |
 
-Connect each switch's **NO** terminal to its GPIO and **COM** to a shared GND; leave **NC** unconnected. Firmware provides pull-ups and 5 ms debounce. P0.31 remains spare. The [migration guide](TRACKBALL_MIGRATION.md) includes J1/FFC pin numbers and the complete matrix pin audit.
+Connect each switch's **NO** terminal to its GPIO and **COM** to a shared GND; leave **NC** unconnected. Firmware provides pull-ups and 5 ms debounce. P0.31 remains spare. The [wiring guide](TRACKBALL_MIGRATION.md) includes J1/FFC pin numbers and the complete matrix pin audit.
 
 ### Configuration
 

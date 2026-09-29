@@ -1,5 +1,5 @@
-/* No secret enters the build, devicetree, ZMK key events, or BLE reports.
- * The slot is personalized in a COPY of the final UF2, outside the Nix store.
+/* Private reports use only a credential loaded from persistent settings.
+ * Provisioning is separate; no secret enters builds, key events, or BLE.
  */
 #define DT_DRV_COMPAT cosmos_unlock
 
@@ -7,7 +7,6 @@
 #include <string.h>
 #include <zephyr/kernel.h>
 #include <zephyr/sys/atomic.h>
-#include <zephyr/sys/crc.h>
 #include <zephyr/usb/usb_device.h>
 #include <zephyr/usb/class/usb_hid.h>
 #include <drivers/behavior.h>
@@ -24,31 +23,11 @@
 #include <zmk/usb_hid.h>
 #include <zmk/endpoints.h>
 #include "cosmos_unlock_guard.h"
+#include "cosmos_unlock_store.h"
 
 BUILD_ASSERT(CONFIG_ZMK_HID_REPORT_TYPE_HKRO && CONFIG_ZMK_HID_KEYBOARD_REPORT_SIZE == 6,
              "Private USB encoder requires the Cosmos six-key HID report format");
 BUILD_ASSERT(ZMK_KEYMAP_LEN <= 64, "Physical key tracking mask is too small");
-
-/* Version 1: 48 random decimal digits (~159 bits), independent of Caps Lock.
- * Integer fields are little-endian on nRF52840. CRC detects corruption, not
- * malicious modification. The whole record is exactly one UF2 payload block.
- */
-struct cu_slot {
-    uint8_t magic[16];
-    uint32_t version;
-    uint32_t length;
-    uint8_t password[64];
-    uint32_t crc;
-    uint8_t padding[164];
-};
-BUILD_ASSERT(sizeof(struct cu_slot) == 256, "Personalization format changed");
-static const struct cu_slot slot_data
-    __attribute__((section(".cosmos_unlock_slot"), used, aligned(256))) = {
-        .magic = "COSMOS-UNLOCK-V1",
-        .version = 1,
-};
-/* Volatile access prevents constant-folding the empty public initializer. */
-static const volatile struct cu_slot *const slot = &slot_data;
 
 static struct cu_guard guard;
 K_MUTEX_DEFINE(guard_lock);
@@ -125,30 +104,11 @@ static bool keyboard_idle(void) {
     return true;
 }
 
-static bool slot_valid(void) {
-    if (slot->version != 1 || slot->length != 48) {
-        return false;
-    }
-    uint32_t crc = 0;
-    for (size_t i = 0; i < 64; ++i) {
-        uint8_t c = slot->password[i];
-        if (i < 48) {
-            if (c < '0' || c > '9') {
-                return false;
-            }
-            crc = crc32_ieee_update(crc, &c, 1);
-        } else if (c) {
-            return false;
-        }
-    }
-    return crc == slot->crc;
-}
-
 static int unlock_pressed(struct zmk_behavior_binding *binding,
                           struct zmk_behavior_binding_event event) {
     k_mutex_lock(&guard_lock, K_FOREVER);
     if (cu_arm(&guard, k_uptime_get(), observer_first && !atomic_get(&exclusive) &&
-               slot_valid() && usb_ready() &&
+               cosmos_unlock_credential_ready() && usb_ready() &&
                keyboard_idle() && zmk_keymap_highest_layer_active() == 3)) {
         armed_epoch = atomic_get(&usb_epoch);
         k_sem_give(&trigger_requested);
@@ -252,7 +212,7 @@ static void unlock_thread(void *a, void *b, void *c) {
         k_sleep(K_MSEC(30));
         bool ok = send_key(0, epoch, false) == 0;
         for (size_t i = 0; ok && i < 48; ++i) {
-            uint8_t digit = slot->password[i];
+            uint8_t digit = cosmos_unlock_digit(i);
             uint8_t usage = digit == '0' ? 0x27 : 0x1e + digit - '1';
             ok = send_key(usage, epoch, false) == 0;
             k_sleep(K_MSEC(20));
