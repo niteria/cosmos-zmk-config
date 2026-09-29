@@ -26,6 +26,12 @@
 
           src = nixpkgs.lib.sourceFilesBySuffices self [
             ".board"
+            ".c"
+            ".h"
+            ".ld"
+            "CMakeLists.txt"
+            "Kconfig"
+            "verify_firmware.py"
             ".cmake"
             ".conf"
             ".defconfig"
@@ -36,6 +42,7 @@
             ".overlay"
             ".shield"
             ".yml"
+            ".yaml"
             "_defconfig"
           ];
 
@@ -51,6 +58,8 @@
             mkdir -p "$out/diagnostics"
             cp zephyr/.config "$out/diagnostics/zephyr.config"
             cp zephyr/zephyr.dts "$out/diagnostics/zephyr.dts"
+            python3 ${./tests/verify_firmware.py} zephyr/zmk.elf
+            cp zephyr/zmk.elf "$out/diagnostics/zmk.elf"
           '';
 
           meta = {
@@ -96,6 +105,10 @@
 
                 data['layout'] = {'zmk_keyboard': 'corne', 'layout_name': 'foostan_corne_6col_layout'}
 
+                for combo in data.get('combos', []):
+                    if combo['k'] == '&cosmos_unlock':
+                        combo.update(k={'t': 'Unlock', 'h': 'Fn + 2s'}, w=70, h=40)
+
                 with open(yaml_path, 'w') as f:
                     yaml.dump(data, f, default_flow_style=False, sort_keys=False, allow_unicode=True)
                 "
@@ -117,6 +130,14 @@
 
       devShells = forAllSystems (system: {
         default = zmk-nix.devShells.${system}.default;
+      });
+
+      checks = forAllSystems (system: {
+        unlock-guard = nixpkgs.legacyPackages.${system}.runCommandCC "cosmos-unlock-guard-tests" { } ''
+          $CC -std=c11 -Wall -Wextra -Werror ${./tests/unlock_guard.c} -I${./src} -o guard-test
+          ./guard-test
+          touch $out
+        '';
       });
     };
 }

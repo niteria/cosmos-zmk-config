@@ -65,6 +65,11 @@ Replace `/dev/sdX` with the device printed by the flasher, for example `/dev/sdb
 | Combo | Keys | Output |
 |-------|------|--------|
 | esc | J+K | ESC |
+| private unlock | Hold physical Func+J+K+L for 2 seconds | Dedicated Deck passphrase + Enter, USB-only; requires personalized right-half firmware |
+
+See [private unlock setup and firmware handling](UNLOCK.md). Public builds contain
+an empty slot, so the unlock chord is inactive until personalized with the local
+agenix-backed helper in `~/zuffie-nixos`.
 
 ## Important Notes
 

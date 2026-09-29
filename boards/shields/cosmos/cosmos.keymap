@@ -4,6 +4,11 @@
 
 / {
     behaviors {
+        cosmos_unlock: cosmos_unlock {
+            compatible = "cosmos,unlock";
+            #binding-cells = <0>;
+            display-name = "Private USB unlock";
+        };
 
         // Thumb key behaviors from Mark Stosberg's layout
         gui_ent: gui_enter {
@@ -46,6 +51,12 @@
 
     combos {
         compatible = "zmk,combos";
+        combo_unlock {
+            timeout-ms = <200>;
+            key-positions = <19 20 21>;
+            bindings = <&cosmos_unlock>;
+            layers = <3>;
+        };
         combo_esc {
             timeout-ms = <50>;
             key-positions = <19 20>;

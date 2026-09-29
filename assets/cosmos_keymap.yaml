@@ -234,6 +234,17 @@ combos:
 - p:
   - 19
   - 20
+  - 21
+  k:
+    t: Unlock
+    h: Fn + 2s
+  l:
+  - Func
+  w: 70
+  h: 40
+- p:
+  - 19
+  - 20
   k: ESC
   l:
   - Base

@@ -140,6 +140,10 @@ can use that pipeline instead.
 
 ## Suggested Func additions — proposal, not installed
 
+Physical Func+J+K+L is reserved for the [private USB unlock chord](UNLOCK.md). It
+requires a two-second physical hold and personalized firmware; one-shot Func
+does not activate it.
+
 These positions are all currently **transparent on Func**. Adding actions there
 preserves Base typing, the defined F1–F12/editing/bootloader/Studio actions, and
 the Hyprland chords used on the Keychron. The affected letters would, of course,

@@ -58,3 +58,8 @@ layers:
     - {t: Bspc, h: "hold Raise", type: existing}
     - {t: Space, h: Space, type: existing}
     - {t: Shift, h: Shift, type: existing}
+combos:
+  - p: [19, 20, 21]
+    k: {t: Unlock, h: "Fn + 2s"}
+    w: 70
+    h: 40

@@ -1,0 +1,7 @@
+config COSMOS_UNLOCK
+    bool "Cosmos private USB unlock chord"
+    depends on ZMK_USB && ZMK_SPLIT_ROLE_CENTRAL
+    depends on ZMK_USB_BOOT
+    help
+      Public firmware contains an empty slot. Personalize the UF2 after the
+      build to enable physical Func+J+K+L held for two seconds.

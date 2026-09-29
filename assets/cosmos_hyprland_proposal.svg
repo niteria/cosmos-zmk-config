@@ -361,6 +361,13 @@ text.existing { fill: #667085; }
 <text x="0" y="0" class="key existing tap">Shift</text>
 <text x="0" y="24" class="key existing hold">Shift</text>
 </g>
+<g class="combo combopos-0">
+<path d="M644,89 l-37,2" class="combo"/>
+<path d="M644,89 l37,2" class="combo"/>
+<rect rx="6" ry="6" x="609" y="69" width="70" height="40" class="combo"/>
+<text x="644" y="89" class="combo tap">Unlock</text>
+<text x="644" y="100" class="combo hold">Fn + 2s</text>
+</g>
 </g>
 </g>
 <text x="870.0" y="359.0" class="footer">PROPOSAL ONLY | Green: new Func action | Top: add Shift | Bottom: Base key | Gray: existing Func action</text></svg>

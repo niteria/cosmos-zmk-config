@@ -1,0 +1,3 @@
+description: Private USB-only Cosmos unlock chord
+compatible: "cosmos,unlock"
+include: zero_param.yaml
