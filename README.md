@@ -129,11 +129,27 @@ Connect each switch's **NO** terminal to its GPIO and **COM** to a shared GND; l
 - **Orientation**: `invert-y` enabled, `invert-x` disabled. This reverses both axes relative to the previous mounted configuration, following the sensor remount.
 - **Lens spacing**: LM18-LSI lens, nominally 2.4 mm from its lowest reference plane to the ball (specified range 2.2–2.6 mm). There is no 2 mm / 3 mm lift-off setting.
 - **Input Listener**: `trackball_listener` node converts sensor events to mouse movements without changing keyboard layers
-- **Scroll Mode**: Hold the RAISE layer thumb key to switch trackball to scroll mode (X/Y axis → horizontal/vertical scroll)
+- **Scroll Mode**: Hold the RAISE layer thumb key for momentary scrolling, or use **Raise+H** to latch scrolling after releasing the keys (X/Y axis → horizontal/vertical scroll, at the same 1/256 scale).
 - **Buttons**: three dedicated microswitches with an independent GPIO input listener, active on every layer. Keyboard keys do not send mouse clicks. The buttons are not extra remappable positions in ZMK Studio.
 - **Configuration files**: `config/cosmos.conf` is shared by both halves; `config/cosmos_right.conf` enables the sensor, GPIO buttons, and right-side USB logging.
 
 The right half exposes separate USB serial interfaces for the log console and ZMK Studio. The log console reports `PMW3610 initialized` on successful sensor startup. To log individual movement deltas, change `CONFIG_PMW3610_LOG_LEVEL_INF=y` to `CONFIG_PMW3610_LOG_LEVEL_DBG=y` in `config/cosmos_right.conf` and rebuild.
+
+### Latched scrolling (right hand only)
+
+1. Hold the **right thumb Backspace/Raise** for its normal 200 ms hold time.
+2. Tap **H**, then release H and the thumb. The trackball keeps scrolling, while
+   the keyboard returns to Base.
+3. Press any keyboard key on either half, or any of the three mouse microswitches,
+   to cancel the latch. That press still types/clicks normally; releases do not
+   cancel. If Raise is still physically held, its ordinary scrolling continues
+   until it is released.
+
+The latch also clears on USB/endpoint changes and is not saved across reboots.
+Backspace's tap, hold, and quick-tap repeat timings are unchanged. Raise+N still
+mutes audio; Raise+Y still falls through to Y. The implementation is the
+`scroll_latch` behavior plus `cosmos_scroll` input processor, shared by the
+trackball and GPIO-button listeners.
 
 ### Troubleshooting
 

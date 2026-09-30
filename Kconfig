@@ -7,3 +7,10 @@ config COSMOS_UNLOCK
       Load the unlock credential from persistent settings. A one-time,
       post-build provisioning command installs it; ordinary public firmware
       updates retain it. Physical Func+J+K+L held for two seconds types it.
+
+config COSMOS_SCROLL_LATCH
+    bool "Cosmos latched trackball scrolling"
+    depends on ZMK_POINTING && ZMK_SPLIT_ROLE_CENTRAL
+    help
+      Raise+H latches trackball scrolling until the next physical keyboard-key
+      or mouse-button press. Holding Raise still enables momentary scrolling.

@@ -129,7 +129,7 @@ layers:
     - {t: "Width -", s: "Height -", h: "D → -"}
     - {t: "Width +", s: "Height +", h: "F → ="}
     - {h: G, type: idle}
-    - {h: H, type: idle}
+    - {t: "Scroll latch", h: H}
     - {t: "Focus ←", s: "Smart ←", h: "J → ←"}
     - {t: "Focus ↓", s: "Smart ↓", h: "K → ↓"}
     - {t: "Focus →", s: "Smart →", h: "L → →"}
@@ -223,7 +223,7 @@ layers:
     - {t: "-", h: D}
     - {t: "=", h: F}
     - {t: "Page ↓", h: G}
-    - {h: H, type: idle}
+    - {t: "Scroll latch", h: H}
     - {t: "←", h: J}
     - {t: "↓", h: K}
     - {t: "→", h: L}
@@ -270,7 +270,7 @@ layers:
     - {h: D, type: idle}
     - {h: F, type: idle}
     - {h: G, type: idle}
-    - {h: H, type: idle}
+    - {t: "Scroll latch", h: H}
     - {t: "Focus ←", s: "hy3 ←", h: "J → ←", type: deck}
     - {t: "Focus ↓", s: "hy3 ↓", h: "K → ↓", type: deck}
     - {t: "Focus →", s: "hy3 →", h: "L → →", type: deck}

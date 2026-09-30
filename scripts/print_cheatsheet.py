@@ -45,7 +45,7 @@ PANELS = [
         "▽ means the layer underneath. For one-shot Func, press modifiers before tapping Func.",
     )),
     Panel("Raise · navigation and media", "Hold the right inner Backspace / Raise thumb", (
-        "I/J/K/L = ↑/←/↓/→. Hold Raise to scroll the trackball; release it to point.",
+        "I/J/K/L = ↑/←/↓/→. Raise+H latches scrolling after release; any next key/button press cancels.",
         "Esc/Ctrl thumb: tap Escape, hold Ctrl. Pause after a Backspace tap before holding for Raise.",
     )),
     Panel("Func · function keys and utilities", "Tap Func for the next key; hold for several actions", (
@@ -69,7 +69,7 @@ PANELS = [
         "The right Shift thumb sends colon on Lower. Super + Q–P is the simpler workspace shortcut.",
     )),
     Panel("Raise · physical-key reference", "Hold Backspace / Raise; bottom legends identify Base keys", (
-        "Super + vertical trackball scrolling changes workspace. The three mouse buttons work on every layer.",
+        "Raise+H latches scrolling; any next key/button press cancels. Super + scrolling changes workspace.",
         "Drag/resize: release Raise, hold left Alt + left/right microswitch, and roll the trackball.",
     )),
     Panel("Deck · Super + Raise navigation", "Hold Enter / Super + Backspace / Raise; top legends add Shift", (

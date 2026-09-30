@@ -1,0 +1,3 @@
+description: Latch trackball scrolling until the next physical key or mouse-button press
+compatible: "cosmos,scroll-latch"
+include: zero_param.yaml

@@ -23,8 +23,11 @@ Q–P for workspaces 1–10; add Shift to move the window and follow it**. This 
 holding Lower to reach the number keys.
 
 Navigation uses **IJKL in an inverted T on Raise**: I is Up, J is Left, K is Down,
-and L is Right. H is transparent and falls through to its Base letter. These
-arrow keycodes also drive the existing Hyprland focus/move bindings.
+and L is Right. These arrow keycodes also drive the existing Hyprland focus/move
+bindings. **Raise+H latches trackball scrolling**: hold the right thumb Backspace
+until Raise resolves, tap H, then release both. The next physical key or mouse
+button press clears the latch and still performs its normal action. The keyboard
+returns to Base when Raise is released; only the trackball stays in scroll mode.
 
 Optional **Func utility additions**, described below, could simplify resizing and
 supply missing Print Screen and media keys. Navigation stays on Raise: Func+I is
@@ -99,6 +102,7 @@ so it is not a reliable place to start a Shift chord while Lower is active.
 | Toggle Magic / move window to Magic | Super+[Shift]+S | Same chords on Base. |
 | Toggle configured workspace sets | Super+C | Same chord on Base; helper arguments are `-s 1,3 -t 4,6 -f DP-1`, so behavior depends on the connected monitors. |
 | Previous/next workspace | Super+wheel up/down | Super + Raise + roll the trackball vertically. Raise converts motion into scroll. |
+| Hands-free trackball scrolling | Firmware action | Hold thumb Backspace/Raise, tap H, then release both. Any next key/button press cancels; a still-held Raise continues ordinary momentary scrolling. |
 | Drag / resize window with trackball | Alt+left / right mouse drag | Hold left Alt and the corresponding **microswitch**, then roll the trackball; use pointer mode, with Raise released. |
 | Speaker mute | XF86AudioMute | Raise+N. |
 | Previous / next media item | XF86AudioPrev / Next | Raise+M / Comma. |

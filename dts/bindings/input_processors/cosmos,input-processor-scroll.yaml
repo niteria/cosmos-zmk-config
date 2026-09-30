@@ -1,0 +1,13 @@
+description: Momentary or latched Cosmos trackball scrolling and button cancellation
+compatible: "cosmos,input-processor-scroll"
+include: ip_zero_param.yaml
+
+properties:
+  raise-layer:
+    type: int
+    required: true
+    description: Keyboard layer that enables momentary scrolling
+  scroll-divisor:
+    type: int
+    required: true
+    description: Divide trackball deltas by this value, preserving fractional motion

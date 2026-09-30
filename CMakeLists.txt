@@ -13,3 +13,8 @@ if(CONFIG_COSMOS_UNLOCK)
     -Wl,--wrap=hid_int_ep_write
   )
 endif()
+
+if(CONFIG_COSMOS_SCROLL_LATCH)
+  # Follow the private-unlock observer, but precede ZMK hold-taps and combos.
+  target_sources(app PRIVATE src/cosmos_scroll.c)
+endif()

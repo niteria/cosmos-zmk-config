@@ -130,6 +130,12 @@
 
                 data['layout'] = {'zmk_keyboard': 'corne', 'layout_name': 'foostan_corne_6col_layout'}
 
+                for layer in data['layers'].values():
+                    for row in layer:
+                        for index, key in enumerate(row):
+                            if key == '&scroll_latch':
+                                row[index] = 'Scroll latch'
+
                 for combo in data.get('combos', []):
                     if combo['k'] == '&cosmos_unlock':
                         combo.update(k={'t': 'Unlock', 'h': 'Fn + 2s'}, w=70, h=40)
@@ -158,6 +164,11 @@
       });
 
       checks = forAllSystems (system: {
+        scroll-latch = nixpkgs.legacyPackages.${system}.runCommandCC "cosmos-scroll-latch-tests" { } ''
+          $CC -std=c11 -Wall -Wextra -Werror ${./tests/scroll_state.c} -I${./src} -o scroll-test
+          ./scroll-test
+          touch $out
+        '';
         flash = nixpkgs.legacyPackages.${system}.runCommand "cosmos-flash-tests" { } ''
           ${nixpkgs.legacyPackages.${system}.python3}/bin/python3 -B ${./tests/test_flash.py} ${./scripts/flash.py}
           touch $out

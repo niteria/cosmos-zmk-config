@@ -133,8 +133,7 @@ layers:
     - '-'
     - '='
     - PG DN
-    - t: ▽
-      type: trans
+    - Scroll latch
     - LEFT
     - DOWN
     - RIGHT

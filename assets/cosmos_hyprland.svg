@@ -655,9 +655,12 @@ rect.zuffie { fill: #ede9fe; }
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key idle"/>
 <text x="0" y="24" class="key idle hold">G</text>
 </g>
-<g transform="translate(532, 98)" class="key idle keypos-18">
-<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key idle"/>
-<text x="0" y="24" class="key idle hold">H</text>
+<g transform="translate(532, 98)" class="key keypos-18">
+<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-1.2em">Scroll</tspan><tspan x="0" dy="1.2em">latch</tspan>
+</text>
+<text x="0" y="24" class="key hold">H</text>
 </g>
 <g transform="translate(588, 91)" class="key keypos-19">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -1076,9 +1079,12 @@ rect.zuffie { fill: #ede9fe; }
 </text>
 <text x="0" y="24" class="key hold">G</text>
 </g>
-<g transform="translate(532, 98)" class="key idle keypos-18">
-<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key idle"/>
-<text x="0" y="24" class="key idle hold">H</text>
+<g transform="translate(532, 98)" class="key keypos-18">
+<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-1.2em">Scroll</tspan><tspan x="0" dy="1.2em">latch</tspan>
+</text>
+<text x="0" y="24" class="key hold">H</text>
 </g>
 <g transform="translate(588, 91)" class="key keypos-19">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -1276,9 +1282,12 @@ rect.zuffie { fill: #ede9fe; }
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key idle"/>
 <text x="0" y="24" class="key idle hold">G</text>
 </g>
-<g transform="translate(532, 98)" class="key idle keypos-18">
-<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key idle"/>
-<text x="0" y="24" class="key idle hold">H</text>
+<g transform="translate(532, 98)" class="key keypos-18">
+<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-1.2em">Scroll</tspan><tspan x="0" dy="1.2em">latch</tspan>
+</text>
+<text x="0" y="24" class="key hold">H</text>
 </g>
 <g transform="translate(588, 91)" class="key deck keypos-19">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key deck"/>

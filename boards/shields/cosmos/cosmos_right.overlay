@@ -84,14 +84,17 @@
         };
     };
 
+    cosmos_scroll: cosmos_scroll {
+        compatible = "cosmos,input-processor-scroll";
+        #input-processor-cells = <0>;
+        raise-layer = <2>;
+        scroll-divisor = <256>;
+    };
+
     trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
-
-        raise_scroller {
-            layers = <2>;
-            input-processors = <&zip_xy_to_scroll_mapper>, <&zip_scroll_scaler 1 256>;
-        };
+        input-processors = <&cosmos_scroll>;
     };
 
     mouse_buttons: mouse_buttons {
@@ -118,5 +121,6 @@
     mouse_buttons_listener {
         compatible = "zmk,input-listener";
         device = <&mouse_buttons>;
+        input-processors = <&cosmos_scroll>;
     };
 };
