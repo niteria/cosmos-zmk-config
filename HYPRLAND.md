@@ -4,6 +4,18 @@ Reference for the **current** Cosmos keymap and the bindings in `~/zuffie-nixos`
 The diagrams use the same 42-key Corne geometry as the main layout SVG. The
 shortcut panels are visual overlays, not additional firmware layers.
 
+## Printable reference
+
+- [Compact A4 PDF](assets/cosmos_print.pdf): four portrait pages, with two keyboard
+  layers or three Hyprland panels per page.
+- [Larger A4 PDF](assets/cosmos_print_large.pdf): five landscape pages, two panels
+  per page, with larger key legends and notes alongside the diagrams.
+
+Both include all four keyboard layers and all six current shortcut panels.
+Print at **actual size / 100%, one PDF page per sheet**; the panels are already
+arranged on the page. Text and key outlines are vector graphics with embedded
+fonts, and host-specific labels remain distinguishable in grayscale.
+
 ## Recommendation
 
 Your workspace shortcuts already fit Cosmos well: **hold Enter/Super and use
@@ -200,10 +212,11 @@ layer selector would alter its existing hold behavior.
 
 ## Sources and regeneration
 
-Hyprland was reviewed on 2026-09-28 against zuffie-nixos `abe4cd8` and the running
-Deck's `hyprctl -j binds` and keyboard layout. These diagrams follow the current
-Cosmos repository keymap, including IJKL navigation on Raise; separate ZMK Studio
-remaps need to be accounted for if in use.
+Hyprland was reviewed on 2026-09-30 against zuffie-nixos `5e118dd` and the running
+Deck's `hyprctl -j binds` and keyboard layout. The relevant host configuration is
+unchanged since the previous review at `abe4cd8`; the documented shortcuts still
+match. These diagrams follow the current Cosmos repository keymap, including IJKL
+navigation on Raise; separate ZMK Studio remaps need to be accounted for if in use.
 
 - `boards/shields/cosmos/cosmos.keymap` and `cosmos_right.overlay`
 - `~/zuffie-nixos/home/hyprland/hyprland.conf`
@@ -219,3 +232,13 @@ They are not compiled into firmware. Regenerate all diagrams with:
 ```bash
 nix run .#update-assets
 ```
+
+Then regenerate both printable PDFs from the generated keymap YAML/geometry and
+the current Hyprland reference YAML:
+
+```bash
+nix run .#print-cheatsheet
+```
+
+Print headings and usage notes live in `scripts/print_cheatsheet.py`. The review
+date comes from this guide; regenerating assets does not re-audit host bindings.

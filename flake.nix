@@ -79,6 +79,26 @@
       });
 
       apps = forAllSystems (system: {
+        print-cheatsheet = {
+          type = "app";
+          program = "${
+            nixpkgs.legacyPackages.${system}.writeShellApplication {
+              name = "print-cheatsheet";
+              runtimeInputs = [
+                nixpkgs.legacyPackages.${system}.git
+                (nixpkgs.legacyPackages.${system}.python3.withPackages (p: [
+                  p.pyyaml
+                  p.reportlab
+                ]))
+              ];
+              text = ''
+                REPO_ROOT="$(git rev-parse --show-toplevel)"
+                exec python3 "$REPO_ROOT/scripts/print_cheatsheet.py" \
+                  --font-dir "${nixpkgs.legacyPackages.${system}.dejavu_fonts}/share/fonts/truetype" "$@"
+              '';
+            }
+          }/bin/print-cheatsheet";
+        };
         update-assets = {
           type = "app";
           program = "${

@@ -17,6 +17,11 @@ Generated via [keymap-drawer](https://github.com/caksoylar/keymap-drawer/) using
 See the [Cosmos Hyprland guide](HYPRLAND.md) for IJKL navigation on Raise, physical
 key sequences, Deck/zuffie differences, and optional Func utility additions.
 
+**Print:** [compact A4 PDF, 2–3 panels/page](assets/cosmos_print.pdf) or
+[larger A4 PDF, 2 panels/page](assets/cosmos_print_large.pdf). Both include the
+Base/Lower/Raise/Func layouts and the current Hyprland cheatsheet. Print at 100%,
+one PDF page per sheet.
+
 <details>
 <summary>Show the current Hyprland shortcut map</summary>
 
@@ -37,6 +42,9 @@ nix build .#firmware
 
 # Generate keymap and Hyprland reference SVGs
 nix run .#update-assets
+
+# Generate printable A4 layout + Hyprland PDFs from the updated assets
+nix run .#print-cheatsheet
 
 # Flash (requires hardware) - interactive, goes half by half and tells you what to do
 nix run .#flash
