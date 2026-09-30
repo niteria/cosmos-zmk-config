@@ -116,6 +116,7 @@ Connect each switch's **NO** terminal to its GPIO and **COM** to a shared GND; l
 - **Driver**: `badjeff/zmk-pmw3610-driver`, pinned to tested ZMK v0.3 revision `5c5af40` in `config/west.yml`.
 - **CPI**: 2400, increased from the initial 600 for higher sensitivity; configurable from 200–3200 in steps of 200.
 - **Mode**: Interrupt-based, with a 1000 ms extra power-up delay.
+- **USB power**: Forced awake with 4 ms sensor sampling (250 Hz), including after long idle periods. On battery, ZMK idle allows the normal sensor rest modes again. `force-awake` and `force-awake-4ms-mode` are set in `cosmos_right.overlay`; the local `patches/pmw3610-usb-awake.patch` adds the USB-power override to the pinned driver. CMake applies it to a build-local copy for both Nix and west/GitHub Actions builds.
 - **IRQ GPIO**: P0.02 with `GPIO_ACTIVE_LOW | GPIO_PULL_UP`
 - **Orientation**: `invert-y` enabled, `invert-x` disabled. This reverses both axes relative to the previous mounted configuration, following the sensor remount.
 - **Lens spacing**: LM18-LSI lens, nominally 2.4 mm from its lowest reference plane to the ball (specified range 2.2–2.6 mm). There is no 2 mm / 3 mm lift-off setting.
@@ -133,6 +134,7 @@ The right half exposes separate USB serial interfaces for the log console and ZM
 - Too sensitive: Lower CPI in steps of 200 (e.g. 1000 or 800), down to a minimum of 200; for finer scaling use a ZMK input processor.
 - Not sensitive enough: Raise CPI in steps of 200.
 - Missing/inverted clicks: Check the switch's COM/NO terminals and the three GPIO assignments above.
+- Slow first movement after idle: On USB, the sensor should stay in performance mode beyond ZMK's 30-second idle timeout. Test after a minute without input; the USB log should show performance register `0xfd` and no `disable performance mode` while USB remains powered. After reconnecting USB while idle, performance mode should enable immediately.
 - Studio connection fails: Select the Studio USB serial interface rather than the log console, then unlock using Fn-N.
 
 ## Credits

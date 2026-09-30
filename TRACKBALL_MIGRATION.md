@@ -141,6 +141,20 @@ This approach sends mouse clicks independently of the keyboard layers and works 
 6. **Validate the assembled keyboard.** Test the full matrix and left-half split connection; left/right/middle clicks and releases; click-and-drag while rolling; simultaneous button presses; USB and BLE output; RAISE scrolling; Studio access; and motion/buttons after idle and a power cycle.
 7. **Tune the mounted trackball.** Verify axes in the final mounting position using `swap-xy`/inversion. The old `rotate-270`/`invert-x` settings need translating for the new sensor orientation. Fine-angle rotation requires a software input processor. Tune sensitivity and scroll scaling after the physical mounting and button behavior work.
 
+### USB-powered sensor responsiveness
+
+The sensor uses `force-awake` and `force-awake-4ms-mode` for 4 ms sampling
+(250 Hz). The local `patches/pmw3610-usb-awake.patch` keeps performance mode
+enabled whenever USB power is present, including after ZMK's 30-second idle
+timeout. USB plug/unplug events re-evaluate the mode; on battery, normal rest
+modes become available when the keyboard is idle. CMake patches a build-local
+driver copy, so Nix and west/GitHub Actions builds use the same implementation.
+
+After flashing the right half, test first movement after at least a minute of
+inactivity, and after unplugging/reconnecting USB. The USB log should report
+performance register `0xfd` (forced awake, 4 ms) and keep performance mode
+enabled while USB-powered.
+
 ## Integration checklist
 
 - [x] Create a branch from the latest main keyboard configuration.

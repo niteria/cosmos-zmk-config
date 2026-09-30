@@ -1,4 +1,6 @@
 build:
+  depends:
+    - pmw3610
   cmake: .
   kconfig: Kconfig
   settings:

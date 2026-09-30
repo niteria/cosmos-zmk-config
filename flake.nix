@@ -40,6 +40,7 @@
             ".json"
             ".keymap"
             ".overlay"
+            ".patch"
             ".shield"
             ".yml"
             ".yaml"

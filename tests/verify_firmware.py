@@ -26,6 +26,14 @@ with open(sys.argv[1], "rb") as stream:
             entries = section.data()[offset : offset + end - start]
             break
     assert entries is not None, "Cannot inspect event subscriptions"
+    subscriptions = set(struct.iter_unpack("<II", entries))
+    pmw3610_listener = symbols["zmk_listener_zmk_pmw3610_idle_sleeper"]
+    for event_name in ("zmk_activity_state_changed", "zmk_usb_conn_state_changed"):
+        assert (symbols[f"zmk_event_{event_name}"], pmw3610_listener) in subscriptions, (
+            f"PMW3610 is not subscribed to {event_name}"
+        )
+    assert "pmw3610_performance_work" in symbols, "PMW3610 power changes must use the work queue"
+    print("Central: PMW3610 USB/activity power listener and deferred work present")
     position_type = symbols["zmk_event_zmk_position_state_changed"]
     first = next(listener for event, listener in struct.iter_unpack("<II", entries)
                  if event == position_type)

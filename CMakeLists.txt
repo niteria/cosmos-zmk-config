@@ -1,3 +1,7 @@
+if(CONFIG_PMW3610)
+  include(cmake/pmw3610.cmake)
+endif()
+
 if(CONFIG_COSMOS_UNLOCK)
   # Added during Zephyr module discovery, before ZMK's application sources.
   # The physical-key observer must precede hold-taps and combos. It also
