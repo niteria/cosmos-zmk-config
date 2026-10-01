@@ -25,9 +25,11 @@ holding Lower to reach the number keys.
 Navigation uses **IJKL in an inverted T on Raise**: I is Up, J is Left, K is Down,
 and L is Right. These arrow keycodes also drive the existing Hyprland focus/move
 bindings. **Raise+H latches trackball scrolling**: hold the right thumb Backspace
-until Raise resolves, tap H, then release both. The next physical key or mouse
-button press clears the latch and still performs its normal action. The keyboard
-returns to Base when Raise is released; only the trackball stays in scroll mode.
+and tap H to activate Raise and latch scrolling immediately, then release both.
+After a recent Backspace tap, allow its quick-tap repeat window to expire first.
+The next physical key or mouse button press clears the latch and still performs
+its normal action. The keyboard returns to Base when Raise is released; only the
+trackball stays in scroll mode.
 
 Optional **Func utility additions**, described below, could simplify resizing and
 supply missing Print Screen and media keys. Navigation stays on Raise: Func+I is
@@ -66,10 +68,18 @@ not wait for the timer. Tapping the thumb alone produces Tab; holding it alone
 activates Lower after 200 ms. An overlapping Tab-to-letter roll is interpreted as
 a Lower chord, so use the dedicated top-left Tab for fast Tab-then-letter input.
 
-Enter/Super, Backspace/Raise, and Raise's Esc/Ctrl are **tap-preferred, 200 ms
-hold-taps**. For their chords, let the hold resolve before pressing the action key;
-a fast roll can produce Enter/Backspace/Escape instead. Backspace also has a 200 ms
-quick-tap repeat window: after tapping it, pause before trying to hold it for Raise.
+**Backspace/Raise is also hold-preferred, with a 200 ms tapping term.** Another key
+press activates Raise immediately for arrows, symbols, media, or the H scroll
+latch. An overlapping Backspace-to-letter roll becomes a Raise chord, so release
+the thumb before typing a replacement letter. Its **200 ms quick-tap repeat**
+window takes precedence: after a Backspace tap, a quick second press stays
+Backspace for repeated deletion. Pause before using that thumb for Raise instead.
+Holding the thumb alone still takes 200 ms to activate Raise; trackball motion
+does not shorten that wait.
+
+Enter/Super and Raise's Esc/Ctrl are **tap-preferred, 200 ms hold-taps**. For their
+chords, let the hold resolve before pressing the action key; a fast roll can
+produce Enter/Escape instead.
 
 Alt, Shift, and Base Ctrl are sticky modifiers: a tap arms the next key for up to
 1 second, and modifiers can be stacked. For repeated window operations, holding

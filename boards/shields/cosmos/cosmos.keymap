@@ -40,7 +40,8 @@
             compatible = "zmk,behavior-hold-tap";
             label = "RAISE_BACKSPACE";
             #binding-cells = <2>;
-            flavor = "tap-preferred";
+            // Resolve Raise on another key press; keep tap-then-hold Backspace repeat.
+            flavor = "hold-preferred";
             tapping-term-ms = <200>;
             quick-tap-ms = <200>;
             bindings = <&mo>, <&kp>;

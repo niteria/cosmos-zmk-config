@@ -137,17 +137,21 @@ The right half exposes separate USB serial interfaces for the log console and ZM
 
 ### Latched scrolling (right hand only)
 
-1. Hold the **right thumb Backspace/Raise** for its normal 200 ms hold time.
-2. Tap **H**, then release H and the thumb. The trackball keeps scrolling, while
-   the keyboard returns to Base.
+1. Press and hold the **right thumb Backspace/Raise**.
+2. Tap **H** to activate Raise and latch scrolling immediately, then release H
+   and the thumb. The trackball keeps scrolling, while the keyboard returns to Base.
 3. Press any keyboard key on either half, or any of the three mouse microswitches,
    to cancel the latch. That press still types/clicks normally; releases do not
    cancel. If Raise is still physically held, its ordinary scrolling continues
    until it is released.
 
 The latch also clears on USB/endpoint changes and is not saved across reboots.
-Backspace's tap, hold, and quick-tap repeat timings are unchanged. Raise+N still
-mutes audio; Raise+Y still falls through to Y. The implementation is the
+Backspace/Raise is **hold-preferred**: another key press selects Raise immediately;
+a tap alone sends Backspace. Its 200 ms quick-tap repeat window allows tap-then-hold
+deletion, so pause after a Backspace tap before trying a Raise chord. For a typing
+correction, release Backspace before pressing the replacement letter. Holding the
+thumb alone activates Raise after 200 ms; trackball motion does not shorten that
+wait. Raise+N mutes audio; Raise+Y falls through to Y. The implementation is the
 `scroll_latch` behavior plus `cosmos_scroll` input processor, shared by the
 trackball and GPIO-button listeners.
 

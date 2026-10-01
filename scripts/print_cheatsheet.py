@@ -37,14 +37,14 @@ class Panel:
 
 PANELS = [
     Panel("Base · typing and thumb keys", "Center = tap; bottom = hold / sticky modifier", (
-        "Enter/Super and Backspace/Raise: hold 200 ms. Tab/Lower: chord for immediate Lower. J+K = Escape.",
+        "Super: hold 200 ms. Lower/Raise: immediate key chords; 200 ms when held alone. J+K = Escape.",
         "Sticky Alt/Ctrl/Shift/Func: tap for the next key, or hold. Use left Alt and outer left Shift.",
     )),
     Panel("Lower · numbers and symbols", "Hold the left inner Tab / Lower thumb", (
         "Chord Tab/Lower for immediate symbols; tap alone for Tab. For fast Tab → letter, use top-left Tab.",
         "▽ means the layer underneath. For one-shot Func, press modifiers before tapping Func.",
     )),
-    Panel("Raise · navigation and media", "Hold the right inner Backspace / Raise thumb", (
+    Panel("Raise · navigation and media", "Hold right thumb Backspace / Raise; another key activates Raise immediately", (
         "I/J/K/L = ↑/←/↓/→. Raise+H latches scrolling after release; any next key/button press cancels.",
         "Esc/Ctrl thumb: tap Escape, hold Ctrl. Pause after a Backspace tap before holding for Raise.",
     )),
