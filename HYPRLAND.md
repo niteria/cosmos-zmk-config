@@ -60,10 +60,15 @@ F8, so adding an IJKL focus cluster to Func would require relocating that key.
 | Func | Tap the bottom-right Func key for the next key, or hold it for several actions. |
 | Escape | Press **J+K together on Base** (50 ms combo window), or hold Raise and tap the left outer thumb. |
 
-Enter/Super, Tab/Lower, Backspace/Raise, and Raise's Esc/Ctrl are
-**tap-preferred, 200 ms hold-taps**.
-For reliable chords, let the hold resolve before pressing the action key. A fast
-roll can produce Enter/Tab/Backspace instead. Backspace also has a 200 ms
+**Tab/Lower is hold-preferred, with a 200 ms tapping term.** Pressing another key
+while the thumb is down activates Lower immediately, so symbols and numbers do
+not wait for the timer. Tapping the thumb alone produces Tab; holding it alone
+activates Lower after 200 ms. An overlapping Tab-to-letter roll is interpreted as
+a Lower chord, so use the dedicated top-left Tab for fast Tab-then-letter input.
+
+Enter/Super, Backspace/Raise, and Raise's Esc/Ctrl are **tap-preferred, 200 ms
+hold-taps**. For their chords, let the hold resolve before pressing the action key;
+a fast roll can produce Enter/Backspace/Escape instead. Backspace also has a 200 ms
 quick-tap repeat window: after tapping it, pause before trying to hold it for Raise.
 
 Alt, Shift, and Base Ctrl are sticky modifiers: a tap arms the next key for up to
