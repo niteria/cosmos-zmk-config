@@ -17,6 +17,10 @@ Generated via [keymap-drawer](https://github.com/caksoylar/keymap-drawer/) using
 See the [Cosmos Hyprland guide](HYPRLAND.md) for IJKL navigation on Raise, physical
 key sequences, Deck/zuffie differences, and optional Func utility additions.
 
+**Region screenshot:** tap **Func**, then **Quote (`'`)** to send Print Screen.
+Select the region with the trackball and left mouse button; Hyprland opens it in
+Satty for annotation, copying, or saving. See the guide for modifier variants.
+
 **Print:** [compact A4 PDF, 2–3 panels/page](assets/cosmos_print.pdf) or
 [larger A4 PDF, 2 panels/page](assets/cosmos_print_large.pdf). Both include the
 Base/Lower/Raise/Func layouts and the current Hyprland cheatsheet. Print at 100%,

@@ -250,11 +250,11 @@ text.existing { fill: #667085; }
 <text x="0" y="0" class="key existing tap">L</text>
 <text x="0" y="24" class="key existing hold">L</text>
 </g>
-<g transform="translate(756, 105)" class="key proposed keypos-22">
-<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key proposed"/>
-<text x="0" y="0" class="key proposed tap">Print</text>
-<text x="0" y="24" class="key proposed hold">Quote</text>
-<text x="0" y="-24" class="key proposed shifted">Window</text>
+<g transform="translate(756, 105)" class="key existing keypos-22">
+<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key existing"/>
+<text x="0" y="0" class="key existing tap">Print</text>
+<text x="0" y="24" class="key existing hold">Quote</text>
+<text x="0" y="-24" class="key existing shifted">Window</text>
 </g>
 <g transform="translate(812, 105)" class="key existing keypos-23">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key existing"/>

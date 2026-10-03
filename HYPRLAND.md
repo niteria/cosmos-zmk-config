@@ -31,9 +31,10 @@ The next physical key or mouse button press clears the latch and still performs
 its normal action. The keyboard returns to Base when Raise is released; only the
 trackball stays in scroll mode.
 
-Optional **Func utility additions**, described below, could simplify resizing and
-supply missing Print Screen and media keys. Navigation stays on Raise: Func+I is
-F8, so adding an IJKL focus cluster to Func would require relocating that key.
+**Func+Quote sends Print Screen** for region screenshots. Optional **Func utility
+additions**, described below, could simplify resizing and supply missing media keys.
+Navigation stays on Raise: Func+I is F8, so adding an IJKL focus cluster to Func
+would require relocating that key.
 
 ## Reading the current shortcut map
 
@@ -151,23 +152,34 @@ The nixmac host also adds Alt+C/V for copy/paste. Its Alt+V overlaps the shared
 vertical-group binding; that is a separate host-specific conflict, not part of
 the Deck/zuffie shortcut map above.
 
+### Screenshots and color picking
+
+Tap **Func**, then the physical **Quote (`'`)** key on the right half to send
+Print Screen. Holding Func while tapping Quote also works.
+
+| Cosmos gesture | Hyprland binding | Action |
+|---|---|---|
+| Func+Quote | Print | Select a region, then annotate it in Satty. |
+| Shift+Func+Quote | Shift+Print | Select a window, then annotate it in Satty. |
+| Ctrl+Func+Quote | Ctrl+Print | Select an output, then annotate it in Satty. |
+| Left Alt+Func+Quote | Alt+Print | Pick a color and copy it to the clipboard. |
+
+For one-shot Func, **hold the modifier first**, then tap Func and Quote. Pressing
+Shift/Ctrl/Alt after tapping Func would consume the one-shot layer before Quote.
+Alternatively, keep Func physically held while adding modifiers.
+
+Select the region with the trackball and left microswitch. The screenshot
+bindings stream PNG data with `hyprshot -m region --raw | satty --filename - ...`
+(using `window` or `output` for the other modes). Use Satty's copy or save action
+after annotation; its configured save filename is
+`~/Pictures/Screenshots/satty-YYYYMMDD-HHMMSS.png`.
+
 ### Keys the current Cosmos layout cannot emit
 
-- **Print Screen:** all four existing Print shortcuts are inaccessible directly:
-  region capture, Shift+Print window capture, Ctrl+Print output capture, and
-  Alt+Print color picker.
 - **Play/pause**, **brightness up/down**, and **microphone mute** are bound in
   Hyprland but have no key in the current Cosmos map.
 - The Deck's keyboard lock shortcut is unbound at the host level; adding an
   Escape key or another way to send Super+Escape would not restore it.
-
-There is also an independent screenshot command issue: the current bindings use
-`hyprshot --clipboard-only && satty --filename -`. This puts the image in the
-clipboard but supplies **no image stream to Satty's stdin**. Adding a Print key
-will make the binding reachable, but the editor hand-off still needs attention.
-A working image-stream form uses `hyprshot -m region --raw | satty --filename - ...`.
-If preserving the existing Print bindings exactly is important, a new shortcut
-can use that pipeline instead.
 
 ## Suggested Func additions — proposal, not installed
 
@@ -185,20 +197,20 @@ gain these meanings while Func is active rather than falling through to Base.
 | Func + physical key | Proposed ZMK binding | Result |
 |---|---|---|
 | D / F | `&kp LA(MINUS)` / `&kp LA(EQUAL)` | Width resize; add Shift for height. |
-| Quote | `&kp PRINTSCREEN` | Print; add Shift/Ctrl/Alt for the existing variants. |
 | M | `&kp C_PLAY_PAUSE` | Play/pause. |
 | Comma / Dot | `&kp C_BRI_DN` / `&kp C_BRI_UP` | Brightness. |
 
-The diagram shows the **six proposed additions** in green; gray keys retain their
-current Func behavior. Tap Func then an action for one-shot use; hold Func while
-tapping several actions. This also avoids holding Raise, so moving the trackball
+The diagram shows the **five proposed additions** in green; gray keys retain their
+current Func behavior, including the installed Print key on Quote. Tap Func then
+an action for one-shot use; hold Func while tapping several actions. This also
+avoids holding Raise, so moving the trackball
 continues to point rather than scroll while using the proposed resize shortcuts.
 
 For a one-shot **Shift+Func** action, press/hold Shift **before** tapping Func,
 then press the action key. Alternatively, keep Func physically held while adding
 modifiers. The current sticky-layer behavior does not ignore modifier presses:
 tapping Func and then pressing Shift would consume the one-shot layer too early.
-The same ordering applies to Ctrl/Alt variants of the proposed Print key.
+The same ordering applies to Ctrl/Alt variants of the installed Print key.
 
 Two optional **additive host bindings** could fill the remaining gaps:
 
@@ -231,10 +243,10 @@ layer selector would alter its existing hold behavior.
 
 ## Sources and regeneration
 
-Hyprland was reviewed on 2026-09-30 against zuffie-nixos `5e118dd` and the running
-Deck's `hyprctl -j binds` and keyboard layout. The relevant host configuration is
-unchanged since the previous review at `abe4cd8`; the documented shortcuts still
-match. These diagrams follow the current Cosmos repository keymap, including IJKL
+Hyprland was reviewed on 2026-10-03 against zuffie-nixos `5e118dd` plus the
+Print-to-Satty pipeline fix documented here, and the running Deck's active
+bindings (`hyprctl -j binds`) and keyboard layout. These diagrams follow the
+current Cosmos repository keymap, including Func+Quote Print Screen and IJKL
 navigation on Raise; separate ZMK Studio remaps need to be accounted for if in use.
 
 - `boards/shields/cosmos/cosmos.keymap` and `cosmos_right.overlay`

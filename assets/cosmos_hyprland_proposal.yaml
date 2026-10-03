@@ -1,4 +1,4 @@
-# Documentation only: these Func additions are NOT in cosmos.keymap.
+# Documentation only: green Func additions are NOT in cosmos.keymap; gray keys are current.
 layout:
   zmk_keyboard: corne
   layout_name: foostan_corne_6col_layout
@@ -36,7 +36,7 @@ layers:
     - {t: J, h: J, type: existing}
     - {t: K, h: K, type: existing}
     - {t: L, h: L, type: existing}
-    - {t: Print, s: "Window", h: Quote, type: proposed}
+    - {t: Print, s: "Window", h: Quote, type: existing}
     - {t: RAlt, h: RALT, type: existing}
 
     - {t: "+SHIFT", h: Shift, type: ghost}

@@ -32,7 +32,7 @@ MARGIN = 8 * mm
 class Panel:
     title: str
     gesture: str
-    notes: tuple[str, str]
+    notes: tuple[str, ...]
 
 
 PANELS = [
@@ -49,6 +49,7 @@ PANELS = [
         "Esc/Ctrl thumb: tap Escape, hold Ctrl. Pause after a Backspace tap before holding for Raise.",
     )),
     Panel("Func · function keys and utilities", "Tap Func for the next key; hold for several actions", (
+        "Fn+Quote: region capture. Add Shift: window; Ctrl: output; Alt: color. Hold modifiers before tapping Fn.",
         "Fn+N unlocks Studio. Fn+B / Fn+Slash enters the left / right bootloader.",
         "Private unlock: hold physical Fn+J+K+L for 2 s; requires USB and a provisioned right half.",
     )),
@@ -98,6 +99,7 @@ ALIASES = {
     "Height +": "Height+", "Height -": "Height−",
     "Focus ↑": "↑", "Focus ←": "←", "Focus ↓": "↓", "Focus →": "→",
     "Page ↑": "PgUp", "Page ↓": "PgDn",
+    "PSCRN": "Print", "PRINTSCREEN": "Print", "PRINT": "Print",
 }
 
 
