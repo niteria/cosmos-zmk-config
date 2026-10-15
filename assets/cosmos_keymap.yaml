@@ -222,10 +222,8 @@ layers:
       type: trans
     - t: ▽
       type: trans
-    - t: ▽
-      type: trans
-    - t: ▽
-      type: trans
+    - BT CLR
+    - OUT TOG
     - t: ▽
       type: trans
 combos:

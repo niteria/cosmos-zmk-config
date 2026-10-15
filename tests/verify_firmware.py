@@ -18,6 +18,10 @@ with open(sys.argv[1], "rb") as stream:
     assert slot.data() == expected, "Public secret slot is not empty or has wrong size"
     assert slot["sh_addr"] % 256 == 0, "Secret slot must occupy one aligned UF2 payload"
     assert not slot["sh_flags"] & 1, "Secret slot must remain in read-only flash"
+    assert "settings_handler_endpoints" not in symbols, "Output preference must not load from flash"
+    assert "endpoints_save_work" not in symbols, "Output preference must not save to flash"
+    assert "settings_handler_bt" in symbols, "Bluetooth pairing storage must remain enabled"
+    print("Central: session-only output preference; Bluetooth pairing storage retained")
     start = symbols["__event_subscriptions_start"]
     end = symbols["__event_subscriptions_end"]
     entries = None
@@ -28,6 +32,16 @@ with open(sys.argv[1], "rb") as stream:
             break
     assert entries is not None, "Cannot inspect event subscriptions"
     subscriptions = set(struct.iter_unpack("<II", entries))
+    if "zmk_listener_zmk_ble" in symbols:
+        keycode_type = symbols["zmk_event_zmk_keycode_state_changed"]
+        first_keycode_listener = next(
+            listener for event, listener in struct.iter_unpack("<II", entries)
+            if event == keycode_type
+        )
+        assert first_keycode_listener == symbols["zmk_listener_zmk_ble"], (
+            "BLE passkey entry must consume keys before ordinary keycode listeners"
+        )
+        print("Central: BLE passkey entry precedes ordinary keycode handling")
     pmw3610_listener = symbols["zmk_listener_zmk_pmw3610_idle_sleeper"]
     for event_name in ("zmk_activity_state_changed", "zmk_usb_conn_state_changed"):
         assert (symbols[f"zmk_event_{event_name}"], pmw3610_listener) in subscriptions, (

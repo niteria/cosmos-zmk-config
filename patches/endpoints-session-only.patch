@@ -1,0 +1,62 @@
+diff --git a/src/endpoints.c b/src/endpoints.c
+--- a/src/endpoints.c
++++ b/src/endpoints.c
+@@ -35,17 +35,1 @@
+-#if IS_ENABLED(CONFIG_SETTINGS)
+-static void endpoints_save_preferred_work(struct k_work *work) {
+-    settings_save_one("endpoints/preferred", &preferred_transport, sizeof(preferred_transport));
+-}
+-
+-static struct k_work_delayable endpoints_save_work;
+-#endif
+-
+-static int endpoints_save_preferred(void) {
+-#if IS_ENABLED(CONFIG_SETTINGS)
+-    return k_work_reschedule(&endpoints_save_work, K_MSEC(CONFIG_ZMK_SETTINGS_SAVE_DEBOUNCE));
+-#else
+-    return 0;
+-#endif
+-}
+-
+ bool zmk_endpoint_instance_eq(struct zmk_endpoint_instance a, struct zmk_endpoint_instance b) {
+@@ -106,3 +90,1 @@
+-    endpoints_save_preferred();
+-
+     update_current_endpoint();
+@@ -240,29 +222,1 @@
+-#if IS_ENABLED(CONFIG_SETTINGS)
+-
+-static int endpoints_handle_set(const char *name, size_t len, settings_read_cb read_cb,
+-                                void *cb_arg) {
+-    LOG_DBG("Setting endpoint value %s", name);
+-
+-    if (settings_name_steq(name, "preferred", NULL)) {
+-        if (len != sizeof(enum zmk_transport)) {
+-            LOG_ERR("Invalid endpoint size (got %d expected %d)", len, sizeof(enum zmk_transport));
+-            return -EINVAL;
+-        }
+-
+-        int err = read_cb(cb_arg, &preferred_transport, sizeof(enum zmk_transport));
+-        if (err <= 0) {
+-            LOG_ERR("Failed to read preferred endpoint from settings (err %d)", err);
+-            return err;
+-        }
+-
+-        update_current_endpoint();
+-    }
+-
+-    return 0;
+-}
+-
+-SETTINGS_STATIC_HANDLER_DEFINE(endpoints, "endpoints", NULL, endpoints_handle_set, NULL, NULL);
+-
+-#endif /* IS_ENABLED(CONFIG_SETTINGS) */
+-
+ static bool is_usb_ready(void) {
+@@ -322,6 +276,2 @@
+ static int zmk_endpoints_init(void) {
+-#if IS_ENABLED(CONFIG_SETTINGS)
+-    k_work_init_delayable(&endpoints_save_work, endpoints_save_preferred_work);
+-#endif
+-
+     current_instance = get_selected_instance();

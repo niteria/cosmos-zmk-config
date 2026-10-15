@@ -75,6 +75,47 @@ Replace `/dev/sdX` with the device printed by the flasher, for example `/dev/sdb
 - Connect the right half over USB, then use `Fn+N` to trigger `&studio_unlock` before connecting from [zmk.studio](https://zmk.studio/).
 - Once you start changing the keymap in ZMK Studio, changes to `boards/shields/cosmos/cosmos.keymap` will not apply again unless you restore stock settings in Studio.
 
+## Switching computers
+
+**Fn+Space** toggles the preferred output between USB and Bluetooth. Fn is a sticky
+layer key, so tapping Fn and then Space also works. The keyboard, trackball, and
+all three mouse buttons switch together.
+
+For one computer over USB and another over Bluetooth:
+
+1. Keep both halves powered and connect the **right/central half** to computer A by USB.
+2. On computer B, open Bluetooth settings and pair with **Cosmos**. An unused
+   Bluetooth profile advertises automatically; the initial profile is 0. If the
+   computer displays a pairing code, enter the current code on Cosmos using the
+   Lower layer's number keys, then tap Enter. During an active passkey request,
+   ZMK consumes these keys internally. If the digits appear on the USB computer,
+   the keyboard is not awaiting the code; restart pairing with a fresh prompt.
+3. Use **Fn+Space** to switch between the two computers.
+
+The build places ZMK's passkey listener before ordinary keycode handling, so
+pairing digits are consumed before they can reach the USB computer. The linked
+firmware check enforces this ordering.
+
+**USB is preferred after every keyboard reboot.** Fn+Space changes the preference
+only for the current session; it is not saved, and any preference stored by older
+firmware is ignored. Bluetooth pairings, Studio settings, and the private unlock
+credential still survive restarts and ordinary firmware flashes. The toggle
+chooses between connections that are ready; if only one is connected, ZMK uses
+that connection, including Bluetooth when USB is unavailable.
+
+**Fn+Backspace** clears the selected Bluetooth host pairing so it can be paired
+again. This preserves the connection between the keyboard halves and the private
+unlock credential. If pairing fails immediately, clear the selected profile,
+forget any old **Cosmos** or **ZMK Tester** entry on the computer, then pair again.
+Old test-firmware pairings can remain even if you have never paired the keyboard
+yourself. The right half always uses the compiled Bluetooth name **Cosmos**,
+rather than a name saved by earlier firmware.
+
+Only the right half needs reflashing for these changes. If a Studio-customized
+keymap is active, assign **Output Selection → Toggle** to Func's Space position
+and **Bluetooth → Clear** to Func's Backspace position in Studio, or restore stock
+settings to use the compiled keymap.
+
 ## Combos
 
 | Combo | Keys | Output |
